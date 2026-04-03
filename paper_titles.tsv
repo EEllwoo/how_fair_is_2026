@@ -1,259 +1,247 @@
-Title	DOI
-Title Page	10.1109/ICSE55347.2025.00047
-Title Page	10.1109/ICSE55347.2025.00207
-Copyright Page	10.1109/ICSE55347.2025.00248
-Table of Contents	10.1109/ICSE55347.2025.00249
-Message from the ICSE 2025 General Chairs	10.1109/ICSE55347.2025.00250
-Message from the ICSE 2025 Program Chairs	10.1109/ICSE55347.2025.00251
-Organizing Committee	10.1109/ICSE55347.2025.00252
-Program Committee	10.1109/ICSE55347.2025.00253
-Additional Reviewers	10.1109/ICSE55347.2025.00254
-Research Track Committee	10.1109/ICSE55347.2025.00255
-Artifact Evaluation Committee	10.1109/ICSE55347.2025.00256
-Thanos: DBMS Bug Detection via Storage Engine Rotation Based Differential Testing	10.1109/ICSE55347.2025.00257
-SpecGen: Automated Generation of Formal Program Specifications via Large Language Models	10.1109/ICSE55347.2025.00129
-Gpass: A Goal-Adaptive Neural Theorem Prover Based on Coq for Automated Formal Verification	10.1109/ICSE55347.2025.00116
-Formally Verified Binary-Level Pointer Analysis	10.1109/ICSE55347.2025.00231
-EffBT: An Efficient Behavior Tree Reactive Synthesis and Execution Framework	10.1109/ICSE55347.2025.00225
-An Empirical Study on Package-Level Deprecation in Python Ecosystem	10.1109/ICSE55347.2025.00046
-Datalog-Based Language-Agnostic Change Impact Analysis for Microservices	10.1109/ICSE55347.2025.00115
-GenC2Rust: Towards Generating Generic Rust Code from C	10.1109/ICSE55347.2025.00127
-Instrumentation-Driven Evolution-Aware Runtime Verification	10.1109/ICSE55347.2025.00099
-Moye: A Wallbreaker for Monolithic Firmware	10.1109/ICSE55347.2025.00053
-Understanding and Detecting Peer Dependency Resolving Loop in npm Ecosystem	10.1109/ICSE55347.2025.00054
-Critical Variable State-Aware Directed Greybox Fuzzing	10.1109/ICSE55347.2025.00219
-LWDIFF: an LLM-Assisted Differential Testing Framework for Webassembly Runtimes	10.1109/ICSE55347.2025.00233
-No Harness, No Problem: Oracle-guided Harnessing for Auto-generating C API Fuzzing Harnesses	10.1109/ICSE55347.2025.00239
-Parametric Falsification of Many Probabilistic Requirements Under Flakiness	10.1109/ICSE55347.2025.00237
-RediI: Test Infrastructure to Enable Deterministic Reproduction of Failures for Distributed Systems	10.1109/ICSE55347.2025.00244
-Automated Generation of Accessibility Test Reports from Recorded User Transcripts	10.1109/ICSE55347.2025.00043
-Fuzzing MLIR Compilers with Custom Mutation Synthesis	10.1109/ICSE55347.2025.00037
-Insvdf: Interface-State-Aware Virtual Device Fuzzing	10.1109/ICSE55347.2025.00190
-Reduce Dependence for Sound Concurrency Bug Prediction	10.1109/ICSE55347.2025.00149
-Sand: Decoupling Sanitization from Fuzzing for Low Overhead	10.1109/ICSE55347.2025.00187
-TransferFuzz: Fuzzing with Historical Trace for Verifying Propagated Vulnerability Code	10.1109/ICSE55347.2025.00061
-A Multiple Representation Transformer with Optimized Abstract Syntax Tree for Efficient Code Clone Detection	10.1109/ICSE55347.2025.00050
-Can an LLM Find Its Way Around a Spreadsheet?	10.1109/ICSE55347.2025.00101
-QEDCartographer: Automating Formal Verification Using Reward-Free Reinforcement Learning	10.1109/ICSE55347.2025.00033
-TIGER: A Generating-Then-Ranking Framework for Practical Python Type Inference	10.1109/ICSE55347.2025.00019
-ROCODE: Integrating Backtracking Mechanism and Program Analysis in Large Language Models for Code Generation	10.1109/ICSE55347.2025.00133
-Rango: Adaptive Retrieval-Augmented Proving for Automated Software Verification	10.1109/ICSE55347.2025.00161
-A Differential Testing Framework to Identify Critical AV Failures Leveraging Arbitrary Inputs	10.1109/ICSE55347.2025.00163
-Automating a Complete Software Test Process Using LLMs: An Automotive Case Study	10.1109/ICSE55347.2025.00211
-LLM-Agents Driven Automated Simulation Testing and Analysis of small Uncrewed Aerial Systems	10.1109/ICSE55347.2025.00223
-Efficient Domain Augmentation for Autonomous Driving Testing Using Diffusion Models	10.1109/ICSE55347.2025.00206
-GARL: Genetic Algorithm-Augmented Reinforcement Learning to Detect Violations in Marker-Based Autonomous Landing Systems	10.1109/ICSE55347.2025.00076
-Decictor: Towards Evaluating the Robustness of Decision-Making in Autonomous Driving Systems	10.1109/ICSE55347.2025.00114
-Does GenAI Make Usability Testing Obsolete?	10.1109/ICSE55347.2025.00138
-Feature-Driven End-to-End Test Generation	10.1109/ICSE55347.2025.00141
-SeeAction: Towards Reverse Engineering How-What-Where of HCI Actions from Screencasts for UI Automation	10.1109/ICSE55347.2025.00144
-Synthesizing Document Database Queries Using Collection Abstractions	10.1109/ICSE55347.2025.00152
-The Power of Types: Exploring the Impact of Type Checking on Neural Bug Detection in Dynamically Typed Languages	10.1109/ICSE55347.2025.00088
-A Test Oracle for Reinforcement Learning Software Based on Lyapunov Stability Control Theory	10.1109/ICSE55347.2025.00074
-CodeImprove: Program Adaptation for Deep Code Models	10.1109/ICSE55347.2025.00139
-Fairquant: Certifying and Quantifying Fairness of Deep Neural Networks	10.1109/ICSE55347.2025.00016
-Calibration and Correctness of Language Models for Code	10.1109/ICSE55347.2025.00040
-An Empirical Study on Commit Message Generation Using LLMs via In-Context Learning	10.1109/ICSE55347.2025.00091
-Instruct or Interact? Exploring and Eliciting LLMs' Capability in Code Snippet Adaptation Through Prompt Engineering	10.1109/ICSE55347.2025.00104
-Search-Based LLMs for Code Optimization	10.1109/ICSE55347.2025.00021
-Towards Better Answers: Automated Stack Overflow Post Updating	10.1109/ICSE55347.2025.00024
-Unseen Horizons: Unveiling the Real Capability of LLM Code Generation Beyond the Familiar	10.1109/ICSE55347.2025.00082
-ConsCS: Effective and Efficient Verification of Circom Circuits	10.1109/ICSE55347.2025.00200
-Constrained LTL Specification Learning from Examples	10.1109/ICSE55347.2025.00160
-LLM-Aided Automatic Modeling for Security Protocol Verification	10.1109/ICSE55347.2025.00197
-Thanos: DBMS Bug Detection via Storage Engine Rotation Based Differential Testing	10.1109/ICSE55347.2025.00001
-Coni: Detecting Database Connector Bugs via State-Aware Test Case Generation	10.1109/ICSE55347.2025.00003
-PUPPY: Finding Performance Degradation Bugs in DBMSs via Limited-Optimization Plan Construction	10.1109/ICSE55347.2025.00045
-Enhancing Fault Localization in Industrial Software Systems via Contrastive Learning	10.1109/ICSE55347.2025.00009
-Who's Pushing the Code? An Exploration of GitHub Impersonation	10.1109/ICSE55347.2025.00065
-Investigating the Impact of Interpersonal Challenges on Feeling Welcome in OSS	10.1109/ICSE55347.2025.00056
-Understanding the Effectiveness of Coverage Criteria for Large Language Models: A Special Angle from Jailbreak Attacks	10.1109/ICSE55347.2025.00209
-Diversity Drives Fairness: Ensemble of Higher Order Mutants for Intersectional Fairness of Machine Learning Software	10.1109/ICSE55347.2025.00122
-HIFI: Explaining and Mitigating Algorithmic Bias Through the Lens of Game-Theoretic Interactions	10.1109/ICSE55347.2025.00221
-Towards More Trustworthy Deep Code Models by Enabling Out-of-Distribution Detection	10.1109/ICSE55347.2025.00177
-FairSense: Long-Term Fairness Analysis of ML-Enabled Systems	10.1109/ICSE55347.2025.00159
-A Little Goes a Long Way: Tuning Configuration Selection for Continuous Kernel Fuzzing	10.1109/ICSE55347.2025.00042
-Exploring the Robustness of the Effect of EVO on Intention Valuation Through Replication	10.1109/ICSE55347.2025.00143
-Unavoidable Boundary Conditions: a Control Perspective on Goal Conflicts	10.1109/ICSE55347.2025.00031
-User Personas Improve Social Sustainability by Encouraging Software Developers to Deprioritize Antisocial Features	10.1109/ICSE55347.2025.00135
-Neurosymbolic Modular Refinement Type Inference	10.1109/ICSE55347.2025.00090
-An Empirical Study on Automatically Detecting AI-Generated Source Code: How Far are We?	10.1109/ICSE55347.2025.00064
-Planning a Large Language Model for Static Detection of Runtime Errors in Code Snippets	10.1109/ICSE55347.2025.00102
-LLMs Meet Library Evolution: Evaluating Deprecated API Usage in LLM-Based Code Completion	10.1109/ICSE55347.2025.00245
-Knowledge-Enhanced Program Repair for Data Science Code	10.1109/ICSE55347.2025.00246
-ADAMAS: Adaptive Domain-Aware Performance Anomaly Detection in Cloud Service Systems	10.1109/ICSE55347.2025.00084
-LibreLog: Accurate and Efficient Unsupervised Log Parsing Using Open-Source Large Language Models	10.1109/ICSE55347.2025.00103
-Model Editing for LLMs4Code: How Far are we?	10.1109/ICSE55347.2025.00049
-Software Model Evolution with Large Language Models: Experiments on Simulated, Public, and Industrial Datasets	10.1109/ICSE55347.2025.00112
-SpecRover: Code Intent Extraction via LLMs	10.1109/ICSE55347.2025.00080
-Unleashing the True Potential of Semantic-Based Log Parsing with Pre-Trained Language Models	10.1109/ICSE55347.2025.00174
-Faster Configuration Performance Bug Testing with Neural Dual-Level Prioritization	10.1109/ICSE55347.2025.00201
-Metamorphic-Based Many-Objective Distillation of LLMs for Code-Related Tasks	10.1109/ICSE55347.2025.00230
-NIODebugger: A Novel Approach to Repair Non-Idempotent-Outcome Tests with LLM-Based Agent	10.1109/ICSE55347.2025.00226
-Test Intention Guided LLM-Based Unit Test Generation	10.1109/ICSE55347.2025.00243
-What You See is What You Get: Attention-Based Self-Guided Automatic Unit Test Generation	10.1109/ICSE55347.2025.00105
-An Empirical Study on Reproducible Packaging in Open-Source Ecosystems	10.1109/ICSE55347.2025.00136
-An Extensive Empirical Study of Nondeterministic Behavior in Static Analysis Tools	10.1109/ICSE55347.2025.00125
-Execution Trace Reconstruction Using Diffusion-Based Generative Models	10.1109/ICSE55347.2025.00063
-Interactive Cross-Language Pointer Analysis for Resolving Native Code in Java Programs	10.1109/ICSE55347.2025.00075
-Static Analysis of Remote Procedure Call in Java Programs	10.1109/ICSE55347.2025.00151
-Large Language Models for Safe Minimization	10.1109/ICSE55347.2025.00203
-Intention is All you Need: Refining your Code from your Intention	10.1109/ICSE55347.2025.00191
-RLCoder: Reinforcement Learning for Repository-Level Code Completion	10.1109/ICSE55347.2025.00014
-INTERTRANS: Leveraging Transitive Intermediate Translations to Enhance LLM-Based Code Translation	10.1109/ICSE55347.2025.00236
-A Large-Scale Study of Model Integration in ML-Enabled Software Systems	10.1109/ICSE55347.2025.00185
-Are LLMs Correctly Integrated into Software Systems?	10.1109/ICSE55347.2025.00204
-Patch Synthesis for Property Repair of Deep Neural Networks	10.1109/ICSE55347.2025.00181
-Code Today, Deadline Tomorrow: Procrastination Among Software Developers	10.1109/ICSE55347.2025.00198
-“Get Me in the Groove”: a Mixed Methods Study on Supporting Adhd Professional Programmers	10.1109/ICSE55347.2025.00242
-Hints Help Finding and Fixing Bugs Differently in Python and Text-Based Program Representations	10.1109/ICSE55347.2025.00192
-How Scientists Use Jupyter Notebooks: Goals, Quality Attributes, and Opportunities	10.1109/ICSE55347.2025.00232
-Accounting for Missing Events in Statistical Information Leakage Analysis	10.1109/ICSE55347.2025.00018
-AssetHarvester: A Static Analysis Tool for Detecting Secret-Asset Pairs in Software Artifacts	10.1109/ICSE55347.2025.00067
-Enhancing the Open Network: Definition and Automated Detection of Smart Contract Defects	10.1109/ICSE55347.2025.00119
-$ZTD_{\text{JAVA}}$: Mitigating Software Supply Chain Vulnerabilities via Zero-Trust Dependencies	10.1109/ICSE55347.2025.00148
-FairChecker: Detecting Fund-Stealing Bugs in DeFi Protocols via Fairness Validation	10.1109/ICSE55347.2025.00134
-An LLM-Based Agent-Oriented Approach for Automated Code Design Issue Localization	10.1109/ICSE55347.2025.00100
-Distilled Lifelong Self-Adaptation for Configurable Systems	10.1109/ICSE55347.2025.00094
-COCA: Generative Root Cause Analysis for Distributed Systems with Code Knowledge	10.1109/ICSE55347.2025.00234
-Enhancing Code Generation via Bidirectional Comment-Level Mutual Grounding	10.1109/ICSE55347.2025.00165
-HumanEvo: An Evolution-Aware Benchmark for More Realistic Evaluation of Repository-Level Code Generation	10.1109/ICSE55347.2025.00228
-From Bugs to Benefits: Improving User Stories by Leveraging Crowd Knowledge with CrUISE-AC	10.1109/ICSE55347.2025.00217
-LiSSA: Toward Generic Traceability Link Recovery Through Retrieval-Augmented Generation	10.1109/ICSE55347.2025.00186
-A Multi-Agent Approach for REST API Testing with Semantic Graphs and LLM-Driven Inputs	10.1109/ICSE55347.2025.00179
-Clozemaster: Fuzzing Rust Compiler by Harnessing Llms for Infilling Masked Real Programs	10.1109/ICSE55347.2025.00175
-LLM Based Input Space Partitioning Testing for Library APIs	10.1109/ICSE55347.2025.00153
-Leveraging Large Language Models for Enhancing the Understandability of Generated Unit Tests	10.1109/ICSE55347.2025.00032
-exLong: Generating Exceptional Behavior Tests with Large Language Models	10.1109/ICSE55347.2025.00176
-TOGLL: Correct and Strong Test Oracle Generation with LLMS	10.1109/ICSE55347.2025.00098
-Answering User Questions About Machine Learning Models Through Standardized Model Cards	10.1109/ICSE55347.2025.00066
-Fairness Testing Through Extreme Value Theory	10.1109/ICSE55347.2025.00070
-Fixing Large Language Models' Specification Misunderstanding for Better Code Generation	10.1109/ICSE55347.2025.00108
-SOEN-101: Code Generation by Emulating Software Process Models Using Large Language Model Agents	10.1109/ICSE55347.2025.00140
-The Product Beyond the Model - An Empirical Study of Repositories of Open-Source ML Products	10.1109/ICSE55347.2025.00006
-Increasing the Effectiveness of Automatically Generated Tests by Improving Class Observability	10.1109/ICSE55347.2025.00156
-Invivo Fuzzing by Amplifying Actual Executions	10.1109/ICSE55347.2025.00172
-Towards High-Strength Combinatorial Interaction Testing for Highly Configurable Software Systems	10.1109/ICSE55347.2025.00113
-WDD: Weighted Delta Debugging	10.1109/ICSE55347.2025.00071
-Topseed: Learning Seed Selection Strategies for Symbolic Execution from Scratch	10.1109/ICSE55347.2025.00095
-The Seeds of the Future Sprout from History: Fuzzing for Unveiling Vulnerabilities in Prospective Deep-Learning Libraries	10.1109/ICSE55347.2025.00132
-Between Lines of Code: Unraveling the Distinct Patterns of Machine and Human Programmers	10.1109/ICSE55347.2025.00005
-Deep Learning-based Code Reviews: A Paradigm Shift or a Double-Edged Sword?	10.1109/ICSE55347.2025.00060
-An Exploratory Study of ML Sketches and Visual Code Assistants	10.1109/ICSE55347.2025.00124
-Licoeval: Evaluating LLMs on License Compliance in Code Generation	10.1109/ICSE55347.2025.00052
-Trust Dynamics in AI-Assisted Development: Definitions, Factors, and Implications	10.1109/ICSE55347.2025.00199
-What Guides Our Choices? Modeling Developers' Trust and Behavioral Intentions Towards Genai	10.1109/ICSE55347.2025.00087
-Large Language Models as Configuration Validators	10.1109/ICSE55347.2025.00017
-LLM Assistance for Memory Safety	10.1109/ICSE55347.2025.00023
-Vulnerability Detection with Code Language Models: How Far are We?	10.1109/ICSE55347.2025.00038
-Combining Fine-Tuning and LLM-Based Agents for Intuitive Smart Contract Auditing with Justifications	10.1109/ICSE55347.2025.00027
-Towards Neural Synthesis for SMT-Assisted Proof-Oriented Programming	10.1109/ICSE55347.2025.00002
-Prompt-to-SQL Injections in LLM-Integrated Web Applications: Risks and Defenses	10.1109/ICSE55347.2025.00007
-Boosting Path-Sensitive Value Flow Analysis Via Removal of Redundant Summaries	10.1109/ICSE55347.2025.00195
-Dockerfile Flakiness: Characterization and Repair	10.1109/ICSE55347.2025.00238
-Evaluating Garbage Collection Performance Across Managed Language Runtimes	10.1109/ICSE55347.2025.00218
-Module-Aware Context Sensitive Pointer Analysis	10.1109/ICSE55347.2025.00227
-Code Comment Inconsistency Detection and Rectification Using a Large Language Model	10.1109/ICSE55347.2025.00035
-Context Conquers Parameters: Outperforming Proprietary Llm in Commit Message Generation	10.1109/ICSE55347.2025.00048
-Hedgecode: A Multi-Task Hedging Contrastive Learning Framework for Code Search	10.1109/ICSE55347.2025.00008
-Reasoning Runtime Behavior of a Program with LLM: How Far are We?	10.1109/ICSE55347.2025.00012
-Source Code Summarization in the Era of Large Language Models	10.1109/ICSE55347.2025.00034
-Template-Guided Program Repair in the Era of Large Language Models	10.1109/ICSE55347.2025.00030
-Dissecting Global Search: A Simple Yet Effective Method to Boost Individual Discrimination Testing and Repair	10.1109/ICSE55347.2025.00235
-FIXDRIVE: Automatically Repairing Autonomous Vehicle Driving Behaviour for $0.08 per Violation	10.1109/ICSE55347.2025.00216
-MARQ: Engineering Mission-Critical AI-Based Software with Automated Result Quality Adaptation	10.1109/ICSE55347.2025.00182
-Automated Test Generation For Smart Contracts via On-Chain Test Case Augmentation and Migration	10.1109/ICSE55347.2025.00096
-Boosting Code-line-level Defect Prediction with Spectrum Information and Causality Analysis	10.1109/ICSE55347.2025.00240
-DPFuzzer: Discovering Safety Critical Vulnerabilities for Drone Path Planners	10.1109/ICSE55347.2025.00051
-IRFuzzer: Specialized Fuzzing for LLVM Backend Code Generation	10.1109/ICSE55347.2025.00130
-Ranking Relevant Tests for Order-Dependent Flaky Tests	10.1109/ICSE55347.2025.00178
-Selecting Initial Seeds for Better JVM Fuzzing	10.1109/ICSE55347.2025.00028
-Toward a Better Understanding of Probabilistic Delta Debugging	10.1109/ICSE55347.2025.00117
-Tumbling Down the Rabbit Hole: How do Assisting Exploration Strategies Facilitate Grey-Box Fuzzing?	10.1109/ICSE55347.2025.00044
-Relationship Status: “It's Complicated” Developer-Security Expert Dynamics in Scrum	10.1109/ICSE55347.2025.00120
-Measuring the Runtime Performance of C++ Code Written by Humans Using Github Copilot	10.1109/ICSE55347.2025.00059
-A Study of Undefined Behavior Across Foreign Function Boundaries in Rust Libraries	10.1109/ICSE55347.2025.00167
-Cooperative Software Verification via Dynamic Program Splitting	10.1109/ICSE55347.2025.00092
-Exposing the Hidden Layer: Software Repositories in the Service of Seo Manipulation	10.1109/ICSE55347.2025.00147
-Hetrify: Efficient Verification of Heterogeneous Programs on RISC-V	10.1109/ICSE55347.2025.00081
-Hyperion: Unveiling DApp Inconsistencies Using LLM and Dataflow-Guided Symbolic Execution	10.1109/ICSE55347.2025.00015
-Smartreco: Detecting Read-Only Reentrancy via Fine-Grained Cross-DApp Analysis	10.1109/ICSE55347.2025.00057
-A Catalog of Micro Frontends Anti-Patterns	10.1109/ICSE55347.2025.00079
-PairSmell: A Novel Perspective Inspecting Software Modular Structure	10.1109/ICSE55347.2025.00072
-Understanding Architectural Complexity, Maintenance Burden, and Developer Sentiment -A Large-Scale Study	10.1109/ICSE55347.2025.00168
-RepairAgent: An Autonomous, LLM-Based Agent for Program Repair	10.1109/ICSE55347.2025.00157
-A Tale of Two DL Cities: When Library Tests Meet Compiler	10.1109/ICSE55347.2025.00025
-Iterative Generation of Adversarial Example for Deep Code Models	10.1109/ICSE55347.2025.00086
-On the Mistaken Assumption of Interchangeable Deep Reinforcement Learning Implementations	10.1109/ICSE55347.2025.00222
-$\mu \text{PRL}$: A Mutation Testing Pipeline for Deep Reinforcement Learning Based on Real Faults	10.1109/ICSE55347.2025.00036
-Testing and Understanding Deviation Behaviors in FHE-Hardened Machine Learning Models	10.1109/ICSE55347.2025.00107
-TraceFL: Interpretability-Driven Debugging in Federated Learning via Neuron Provenance	10.1109/ICSE55347.2025.00128
-A First Look at Conventional Commits Classification	10.1109/ICSE55347.2025.00011
-Chatgpt Inaccuracy Mitigation During Technical Report Understanding: Are we There Yet?	10.1109/ICSE55347.2025.00145
-SECRET: Towards Scalable and Efficient Code Retrieval via Segmented Deep Hashing	10.1109/ICSE55347.2025.00154
-Decoding the Issue Resolution Process in Practice via Issue Report Analysis: a Case Study of Firefox	10.1109/ICSE55347.2025.00241
-Preserving Privacy in Software Composition Analysis: A Study of Technical Solutions and Enhancements	10.1109/ICSE55347.2025.00055
-UML is Back. Or is it? Investigating the Past, Present, and Future of UML in Open Source Software	10.1109/ICSE55347.2025.00155
-Understanding the Response to Open-Source Dependency Abandonment in the npm Ecosystem	10.1109/ICSE55347.2025.00004
-Understanding Compiler Bugs in Real Development	10.1109/ICSE55347.2025.00068
-Studying Programmers Without Programming: Investigating Expertise Using Resting State fMRI	10.1109/ICSE55347.2025.00164
-Accessibility Issues in Ad-Driven Web Applications	10.1109/ICSE55347.2025.00171
-Unveiling the Energy Vampires: A Methodology for Debugging Software Energy Consumption	10.1109/ICSE55347.2025.00118
-Automated, Unsupervised, and Auto-Parameterized Inference of Data Patterns and Anomaly Detection	10.1109/ICSE55347.2025.00078
-On Prescription or Off Prescription? An Empirical Study of Community-Prescribed Security Configurations for Kubernetes	10.1109/ICSE55347.2025.00170
-Similar but Patched Code Considered Harmful: The Impact of Similar but Patched Code on Recurring Vulnerability Detection and How to Remove Them	10.1109/ICSE55347.2025.00110
-Tiver: Identifying Adaptive Versions of C/C++ Third-Party Open-Source Components Using a Code Clustering Technique	10.1109/ICSE55347.2025.00188
-An Exploratory Study on the Engineering of Security Features	10.1109/ICSE55347.2025.00184
-DesignRepair: Dual-Stream Design Guideline-Aware Frontend Repair with Large Language Models	10.1109/ICSE55347.2025.00109
-Fidelity of Cloud Emulators: The Imitation Game of Testing Cloud-Based Software	10.1109/ICSE55347.2025.00077
-Formally Verified Cloud-Scale Authorization	10.1109/ICSE55347.2025.00166
-The Same Only Different: On Information Modality for Configuration Performance Analysis	10.1109/ICSE55347.2025.00212
-3DGen: AI-Assisted Generation of Provably Correct Binary Format Parsers	10.1109/ICSE55347.2025.00173
-Aligning the Objective of LLM-Based Program Repair	10.1109/ICSE55347.2025.00169
-Revisiting Unnaturalness for Automated Program Repair in the Era of Large Language Models	10.1109/ICSE55347.2025.00089
-The Fact Selection Problem in LLM-Based Program Repair	10.1109/ICSE55347.2025.00162
-Towards Understanding the Characteristics of Code Generation Errors Made by Large Language Models	10.1109/ICSE55347.2025.00180
-Repository-Level Graph Representation Learning for Enhanced Security Patch Detection	10.1109/ICSE55347.2025.00121
-Famos: Fault Diagnosis for Microservice Systems Through Effective Multi-Modal Data Fusion	10.1109/ICSE55347.2025.00073
-Leveraging Large Language Models to Detect NPM Malicious Packages	10.1109/ICSE55347.2025.00146
-MAGIKA: AI-Powered Content-Type Detection	10.1109/ICSE55347.2025.00158
-Closing the Gap: A User Study on the Real-world Usefulness of AI-powered Vulnerability Detection & Repair in the IDE	10.1109/ICSE55347.2025.00126
-Show Me Your Code! Kill Code Poisoning: A Lightweight Method Based on Code Naturalness	10.1109/ICSE55347.2025.00247
-Treefix: Enabling Execution with a Tree of Prefixes	10.1109/ICSE55347.2025.00215
-Automated Accessibility Analysis of Dynamic Content Changes on Mobile Apps	10.1109/ICSE55347.2025.00039
-Janus: Detecting Rendering Bugs in Web Browsers via Visual Delta Consistency	10.1109/ICSE55347.2025.00013
-Chatgpt-Based Test Generation for Refactoring Engines Enhanced by Feature Analysis on Examples	10.1109/ICSE55347.2025.00210
-Navigating the Testing of Evolving Deep Learning Systems: An Exploratory Interview Study	10.1109/ICSE55347.2025.00106
-EP-Detector: Automatic Detection of Error-Prone Operation Anomalies in Android Applications	10.1109/ICSE55347.2025.00029
-Mobile Application Coverage: The 30% Curse and Ways Forward	10.1109/ICSE55347.2025.00142
-The Design Smells Breaking the Boundary between Android Variants and AOSP	10.1109/ICSE55347.2025.00062
-Scenario-Driven and Context-Aware Automated Accessibility Testing for Android Apps	10.1109/ICSE55347.2025.00093
-TacDroid: Detection of Illicit Apps Through Hybrid Analysis of UI-Based Transition Graphs	10.1109/ICSE55347.2025.00111
-PacDroid: A Pointer-Analysis-Centric Framework for Security Vulnerabilities in Android Apps	10.1109/ICSE55347.2025.00208
-ROSA: Finding Backdoors with Fuzzing	10.1109/ICSE55347.2025.00183
-Analyzing the Feasibility of Adopting Google's Nonce-Based CSP Solutions on Websites	10.1109/ICSE55347.2025.00193
-Early Detection of Performance Regressions by Bridging Local Performance Data and Architectural Models	10.1109/ICSE55347.2025.00026
-Practical Object-Level Sanitizer with Aggregated Memory Access and Custom Allocator	10.1109/ICSE55347.2025.00213
-GVI: Guided Vulnerability Imagination for Boosting Deep Vulnerability Detectors	10.1109/ICSE55347.2025.00214
-Decoding Secret Memorization in Code LLMs Through Token-Level Characterization	10.1109/ICSE55347.2025.00229
-Are We Learning the Right Features? A Framework for Evaluating DL-Based Software Vulnerability Detection Solutions	10.1109/ICSE55347.2025.00194
-Boosting Static Resource Leak Detection via LLM-based Resource-Oriented Intention Inference	10.1109/ICSE55347.2025.00131
-Weakly-Supervised Log-Based Anomaly Detection with Inexact Labels via Multi-Instance Learning	10.1109/ICSE55347.2025.00189
-When Quantum Meets Classical: Characterizing Hybrid Quantum-Classical Issues Discussed in Developer Forums	10.1109/ICSE55347.2025.00137
-Improved Detection and Diagnosis of Faults in Deep Neural Networks Using Hierarchical and Explainable Classification	10.1109/ICSE55347.2025.00224
-Lightweight Concolic Testing via Path-Condition Synthesis for Deep Learning Libraries	10.1109/ICSE55347.2025.00202
-Mock Deep Testing: Toward Separate Development of Data and Models for Deep Learning	10.1109/ICSE55347.2025.00220
-Rug: Turbo Llm for Rust Unit Test Generation	10.1109/ICSE55347.2025.00097
-An Empirical Study of Proxy Contracts at the Ethereum Ecosystem Scale	10.1109/ICSE55347.2025.00083
-Demystifying and Detecting Cryptographic Defects in Ethereum Smart Contracts	10.1109/ICSE55347.2025.00010
-Chord: Towards a Unified Detection of Blockchain Transaction Parallelism Bugs	10.1109/ICSE55347.2025.00205
-Definition and Detection of Centralization Defects in Smart Contracts	10.1109/ICSE55347.2025.00058
-Fork State-Aware Differential Fuzzing for Blockchain Consensus Implementations	10.1109/ICSE55347.2025.00085
-Code Cloning in Solidity Smart Contracts: Prevalence, Evolution, and Impact on Development	10.1109/ICSE55347.2025.00123
-Pattern-Based Generation and Adaptation of Quantum Workflows	10.1109/ICSE55347.2025.00196
-BSan: A Powerful Identifier-Based Hardware-Independent Memory Error Detector for COTS Binaries	10.1109/ICSE55347.2025.00020
-RustAssistant: Using LLMs to Fix Compilation Errors in Rust Code	10.1109/ICSE55347.2025.00022
-Your Fix Is My Exploit: Enabling Comprehensive DL Library API Fuzzing with Large Language Models	10.1109/ICSE55347.2025.00041
-BDefects4NN: A Backdoor Defect Database for Controlled Localization Studies in Neural Networks	10.1109/ICSE55347.2025.00069
-Leveraging Propagated Infection to Crossfire Mutants	10.1109/ICSE55347.2025.00150
-Author Index	10.1109/ICSE55347.2025.00258
+INDEX	Title	DOI
+12	Thanos: DBMS Bug Detection via Storage Engine Rotation Based Differential Testing	10.1109/ICSE55347.2025.00257
+13	SpecGen: Automated Generation of Formal Program Specifications via Large Language Models	10.1109/ICSE55347.2025.00129
+14	Gpass: A Goal-Adaptive Neural Theorem Prover Based on Coq for Automated Formal Verification	10.1109/ICSE55347.2025.00116
+15	Formally Verified Binary-Level Pointer Analysis	10.1109/ICSE55347.2025.00231
+16	EffBT: An Efficient Behavior Tree Reactive Synthesis and Execution Framework	10.1109/ICSE55347.2025.00225
+17	An Empirical Study on Package-Level Deprecation in Python Ecosystem	10.1109/ICSE55347.2025.00046
+18	Datalog-Based Language-Agnostic Change Impact Analysis for Microservices	10.1109/ICSE55347.2025.00115
+19	GenC2Rust: Towards Generating Generic Rust Code from C	10.1109/ICSE55347.2025.00127
+20	Instrumentation-Driven Evolution-Aware Runtime Verification	10.1109/ICSE55347.2025.00099
+21	Moye: A Wallbreaker for Monolithic Firmware	10.1109/ICSE55347.2025.00053
+22	Understanding and Detecting Peer Dependency Resolving Loop in npm Ecosystem	10.1109/ICSE55347.2025.00054
+23	Critical Variable State-Aware Directed Greybox Fuzzing	10.1109/ICSE55347.2025.00219
+24	LWDIFF: an LLM-Assisted Differential Testing Framework for Webassembly Runtimes	10.1109/ICSE55347.2025.00233
+25	No Harness, No Problem: Oracle-guided Harnessing for Auto-generating C API Fuzzing Harnesses	10.1109/ICSE55347.2025.00239
+26	Parametric Falsification of Many Probabilistic Requirements Under Flakiness	10.1109/ICSE55347.2025.00237
+27	RediI: Test Infrastructure to Enable Deterministic Reproduction of Failures for Distributed Systems	10.1109/ICSE55347.2025.00244
+28	Automated Generation of Accessibility Test Reports from Recorded User Transcripts	10.1109/ICSE55347.2025.00043
+29	Fuzzing MLIR Compilers with Custom Mutation Synthesis	10.1109/ICSE55347.2025.00037
+30	Insvdf: Interface-State-Aware Virtual Device Fuzzing	10.1109/ICSE55347.2025.00190
+31	Reduce Dependence for Sound Concurrency Bug Prediction	10.1109/ICSE55347.2025.00149
+32	Sand: Decoupling Sanitization from Fuzzing for Low Overhead	10.1109/ICSE55347.2025.00187
+33	TransferFuzz: Fuzzing with Historical Trace for Verifying Propagated Vulnerability Code	10.1109/ICSE55347.2025.00061
+34	A Multiple Representation Transformer with Optimized Abstract Syntax Tree for Efficient Code Clone Detection	10.1109/ICSE55347.2025.00050
+35	Can an LLM Find Its Way Around a Spreadsheet?	10.1109/ICSE55347.2025.00101
+36	QEDCartographer: Automating Formal Verification Using Reward-Free Reinforcement Learning	10.1109/ICSE55347.2025.00033
+37	TIGER: A Generating-Then-Ranking Framework for Practical Python Type Inference	10.1109/ICSE55347.2025.00019
+38	ROCODE: Integrating Backtracking Mechanism and Program Analysis in Large Language Models for Code Generation	10.1109/ICSE55347.2025.00133
+39	Rango: Adaptive Retrieval-Augmented Proving for Automated Software Verification	10.1109/ICSE55347.2025.00161
+40	A Differential Testing Framework to Identify Critical AV Failures Leveraging Arbitrary Inputs	10.1109/ICSE55347.2025.00163
+41	Automating a Complete Software Test Process Using LLMs: An Automotive Case Study	10.1109/ICSE55347.2025.00211
+42	LLM-Agents Driven Automated Simulation Testing and Analysis of small Uncrewed Aerial Systems	10.1109/ICSE55347.2025.00223
+43	Efficient Domain Augmentation for Autonomous Driving Testing Using Diffusion Models	10.1109/ICSE55347.2025.00206
+44	GARL: Genetic Algorithm-Augmented Reinforcement Learning to Detect Violations in Marker-Based Autonomous Landing Systems	10.1109/ICSE55347.2025.00076
+45	Decictor: Towards Evaluating the Robustness of Decision-Making in Autonomous Driving Systems	10.1109/ICSE55347.2025.00114
+46	Does GenAI Make Usability Testing Obsolete?	10.1109/ICSE55347.2025.00138
+47	Feature-Driven End-to-End Test Generation	10.1109/ICSE55347.2025.00141
+48	SeeAction: Towards Reverse Engineering How-What-Where of HCI Actions from Screencasts for UI Automation	10.1109/ICSE55347.2025.00144
+49	Synthesizing Document Database Queries Using Collection Abstractions	10.1109/ICSE55347.2025.00152
+50	The Power of Types: Exploring the Impact of Type Checking on Neural Bug Detection in Dynamically Typed Languages	10.1109/ICSE55347.2025.00088
+51	A Test Oracle for Reinforcement Learning Software Based on Lyapunov Stability Control Theory	10.1109/ICSE55347.2025.00074
+52	CodeImprove: Program Adaptation for Deep Code Models	10.1109/ICSE55347.2025.00139
+53	Fairquant: Certifying and Quantifying Fairness of Deep Neural Networks	10.1109/ICSE55347.2025.00016
+54	Calibration and Correctness of Language Models for Code	10.1109/ICSE55347.2025.00040
+55	An Empirical Study on Commit Message Generation Using LLMs via In-Context Learning	10.1109/ICSE55347.2025.00091
+56	Instruct or Interact? Exploring and Eliciting LLMs' Capability in Code Snippet Adaptation Through Prompt Engineering	10.1109/ICSE55347.2025.00104
+57	Search-Based LLMs for Code Optimization	10.1109/ICSE55347.2025.00021
+58	Towards Better Answers: Automated Stack Overflow Post Updating	10.1109/ICSE55347.2025.00024
+59	Unseen Horizons: Unveiling the Real Capability of LLM Code Generation Beyond the Familiar	10.1109/ICSE55347.2025.00082
+60	ConsCS: Effective and Efficient Verification of Circom Circuits	10.1109/ICSE55347.2025.00200
+61	Constrained LTL Specification Learning from Examples	10.1109/ICSE55347.2025.00160
+62	LLM-Aided Automatic Modeling for Security Protocol Verification	10.1109/ICSE55347.2025.00197
+63	Thanos: DBMS Bug Detection via Storage Engine Rotation Based Differential Testing	10.1109/ICSE55347.2025.00001
+64	Coni: Detecting Database Connector Bugs via State-Aware Test Case Generation	10.1109/ICSE55347.2025.00003
+65	PUPPY: Finding Performance Degradation Bugs in DBMSs via Limited-Optimization Plan Construction	10.1109/ICSE55347.2025.00045
+66	Enhancing Fault Localization in Industrial Software Systems via Contrastive Learning	10.1109/ICSE55347.2025.00009
+67	Who's Pushing the Code? An Exploration of GitHub Impersonation	10.1109/ICSE55347.2025.00065
+68	Investigating the Impact of Interpersonal Challenges on Feeling Welcome in OSS	10.1109/ICSE55347.2025.00056
+69	Understanding the Effectiveness of Coverage Criteria for Large Language Models: A Special Angle from Jailbreak Attacks	10.1109/ICSE55347.2025.00209
+70	Diversity Drives Fairness: Ensemble of Higher Order Mutants for Intersectional Fairness of Machine Learning Software	10.1109/ICSE55347.2025.00122
+71	HIFI: Explaining and Mitigating Algorithmic Bias Through the Lens of Game-Theoretic Interactions	10.1109/ICSE55347.2025.00221
+72	Towards More Trustworthy Deep Code Models by Enabling Out-of-Distribution Detection	10.1109/ICSE55347.2025.00177
+73	FairSense: Long-Term Fairness Analysis of ML-Enabled Systems	10.1109/ICSE55347.2025.00159
+74	A Little Goes a Long Way: Tuning Configuration Selection for Continuous Kernel Fuzzing	10.1109/ICSE55347.2025.00042
+75	Exploring the Robustness of the Effect of EVO on Intention Valuation Through Replication	10.1109/ICSE55347.2025.00143
+76	Unavoidable Boundary Conditions: a Control Perspective on Goal Conflicts	10.1109/ICSE55347.2025.00031
+77	User Personas Improve Social Sustainability by Encouraging Software Developers to Deprioritize Antisocial Features	10.1109/ICSE55347.2025.00135
+78	Neurosymbolic Modular Refinement Type Inference	10.1109/ICSE55347.2025.00090
+79	An Empirical Study on Automatically Detecting AI-Generated Source Code: How Far are We?	10.1109/ICSE55347.2025.00064
+80	Planning a Large Language Model for Static Detection of Runtime Errors in Code Snippets	10.1109/ICSE55347.2025.00102
+81	LLMs Meet Library Evolution: Evaluating Deprecated API Usage in LLM-Based Code Completion	10.1109/ICSE55347.2025.00245
+82	Knowledge-Enhanced Program Repair for Data Science Code	10.1109/ICSE55347.2025.00246
+83	ADAMAS: Adaptive Domain-Aware Performance Anomaly Detection in Cloud Service Systems	10.1109/ICSE55347.2025.00084
+84	LibreLog: Accurate and Efficient Unsupervised Log Parsing Using Open-Source Large Language Models	10.1109/ICSE55347.2025.00103
+85	Model Editing for LLMs4Code: How Far are we?	10.1109/ICSE55347.2025.00049
+86	Software Model Evolution with Large Language Models: Experiments on Simulated, Public, and Industrial Datasets	10.1109/ICSE55347.2025.00112
+87	SpecRover: Code Intent Extraction via LLMs	10.1109/ICSE55347.2025.00080
+88	Unleashing the True Potential of Semantic-Based Log Parsing with Pre-Trained Language Models	10.1109/ICSE55347.2025.00174
+89	Faster Configuration Performance Bug Testing with Neural Dual-Level Prioritization	10.1109/ICSE55347.2025.00201
+90	Metamorphic-Based Many-Objective Distillation of LLMs for Code-Related Tasks	10.1109/ICSE55347.2025.00230
+91	NIODebugger: A Novel Approach to Repair Non-Idempotent-Outcome Tests with LLM-Based Agent	10.1109/ICSE55347.2025.00226
+92	Test Intention Guided LLM-Based Unit Test Generation	10.1109/ICSE55347.2025.00243
+93	What You See is What You Get: Attention-Based Self-Guided Automatic Unit Test Generation	10.1109/ICSE55347.2025.00105
+94	An Empirical Study on Reproducible Packaging in Open-Source Ecosystems	10.1109/ICSE55347.2025.00136
+95	An Extensive Empirical Study of Nondeterministic Behavior in Static Analysis Tools	10.1109/ICSE55347.2025.00125
+96	Execution Trace Reconstruction Using Diffusion-Based Generative Models	10.1109/ICSE55347.2025.00063
+97	Interactive Cross-Language Pointer Analysis for Resolving Native Code in Java Programs	10.1109/ICSE55347.2025.00075
+98	Static Analysis of Remote Procedure Call in Java Programs	10.1109/ICSE55347.2025.00151
+99	Large Language Models for Safe Minimization	10.1109/ICSE55347.2025.00203
+100	Intention is All you Need: Refining your Code from your Intention	10.1109/ICSE55347.2025.00191
+101	RLCoder: Reinforcement Learning for Repository-Level Code Completion	10.1109/ICSE55347.2025.00014
+102	INTERTRANS: Leveraging Transitive Intermediate Translations to Enhance LLM-Based Code Translation	10.1109/ICSE55347.2025.00236
+103	A Large-Scale Study of Model Integration in ML-Enabled Software Systems	10.1109/ICSE55347.2025.00185
+104	Are LLMs Correctly Integrated into Software Systems?	10.1109/ICSE55347.2025.00204
+105	Patch Synthesis for Property Repair of Deep Neural Networks	10.1109/ICSE55347.2025.00181
+106	Code Today, Deadline Tomorrow: Procrastination Among Software Developers	10.1109/ICSE55347.2025.00198
+107	“Get Me in the Groove”: a Mixed Methods Study on Supporting Adhd Professional Programmers	10.1109/ICSE55347.2025.00242
+108	Hints Help Finding and Fixing Bugs Differently in Python and Text-Based Program Representations	10.1109/ICSE55347.2025.00192
+109	How Scientists Use Jupyter Notebooks: Goals, Quality Attributes, and Opportunities	10.1109/ICSE55347.2025.00232
+110	Accounting for Missing Events in Statistical Information Leakage Analysis	10.1109/ICSE55347.2025.00018
+111	AssetHarvester: A Static Analysis Tool for Detecting Secret-Asset Pairs in Software Artifacts	10.1109/ICSE55347.2025.00067
+112	Enhancing the Open Network: Definition and Automated Detection of Smart Contract Defects	10.1109/ICSE55347.2025.00119
+113	$ZTD_{\text{JAVA}}$: Mitigating Software Supply Chain Vulnerabilities via Zero-Trust Dependencies	10.1109/ICSE55347.2025.00148
+114	FairChecker: Detecting Fund-Stealing Bugs in DeFi Protocols via Fairness Validation	10.1109/ICSE55347.2025.00134
+115	An LLM-Based Agent-Oriented Approach for Automated Code Design Issue Localization	10.1109/ICSE55347.2025.00100
+116	Distilled Lifelong Self-Adaptation for Configurable Systems	10.1109/ICSE55347.2025.00094
+117	COCA: Generative Root Cause Analysis for Distributed Systems with Code Knowledge	10.1109/ICSE55347.2025.00234
+118	Enhancing Code Generation via Bidirectional Comment-Level Mutual Grounding	10.1109/ICSE55347.2025.00165
+119	HumanEvo: An Evolution-Aware Benchmark for More Realistic Evaluation of Repository-Level Code Generation	10.1109/ICSE55347.2025.00228
+120	From Bugs to Benefits: Improving User Stories by Leveraging Crowd Knowledge with CrUISE-AC	10.1109/ICSE55347.2025.00217
+121	LiSSA: Toward Generic Traceability Link Recovery Through Retrieval-Augmented Generation	10.1109/ICSE55347.2025.00186
+122	A Multi-Agent Approach for REST API Testing with Semantic Graphs and LLM-Driven Inputs	10.1109/ICSE55347.2025.00179
+123	Clozemaster: Fuzzing Rust Compiler by Harnessing Llms for Infilling Masked Real Programs	10.1109/ICSE55347.2025.00175
+124	LLM Based Input Space Partitioning Testing for Library APIs	10.1109/ICSE55347.2025.00153
+125	Leveraging Large Language Models for Enhancing the Understandability of Generated Unit Tests	10.1109/ICSE55347.2025.00032
+126	exLong: Generating Exceptional Behavior Tests with Large Language Models	10.1109/ICSE55347.2025.00176
+127	TOGLL: Correct and Strong Test Oracle Generation with LLMS	10.1109/ICSE55347.2025.00098
+128	Answering User Questions About Machine Learning Models Through Standardized Model Cards	10.1109/ICSE55347.2025.00066
+129	Fairness Testing Through Extreme Value Theory	10.1109/ICSE55347.2025.00070
+130	Fixing Large Language Models' Specification Misunderstanding for Better Code Generation	10.1109/ICSE55347.2025.00108
+131	SOEN-101: Code Generation by Emulating Software Process Models Using Large Language Model Agents	10.1109/ICSE55347.2025.00140
+132	The Product Beyond the Model - An Empirical Study of Repositories of Open-Source ML Products	10.1109/ICSE55347.2025.00006
+133	Increasing the Effectiveness of Automatically Generated Tests by Improving Class Observability	10.1109/ICSE55347.2025.00156
+134	Invivo Fuzzing by Amplifying Actual Executions	10.1109/ICSE55347.2025.00172
+135	Towards High-Strength Combinatorial Interaction Testing for Highly Configurable Software Systems	10.1109/ICSE55347.2025.00113
+136	WDD: Weighted Delta Debugging	10.1109/ICSE55347.2025.00071
+137	Topseed: Learning Seed Selection Strategies for Symbolic Execution from Scratch	10.1109/ICSE55347.2025.00095
+138	The Seeds of the Future Sprout from History: Fuzzing for Unveiling Vulnerabilities in Prospective Deep-Learning Libraries	10.1109/ICSE55347.2025.00132
+139	Between Lines of Code: Unraveling the Distinct Patterns of Machine and Human Programmers	10.1109/ICSE55347.2025.00005
+140	Deep Learning-based Code Reviews: A Paradigm Shift or a Double-Edged Sword?	10.1109/ICSE55347.2025.00060
+141	An Exploratory Study of ML Sketches and Visual Code Assistants	10.1109/ICSE55347.2025.00124
+142	Licoeval: Evaluating LLMs on License Compliance in Code Generation	10.1109/ICSE55347.2025.00052
+143	Trust Dynamics in AI-Assisted Development: Definitions, Factors, and Implications	10.1109/ICSE55347.2025.00199
+144	What Guides Our Choices? Modeling Developers' Trust and Behavioral Intentions Towards Genai	10.1109/ICSE55347.2025.00087
+145	Large Language Models as Configuration Validators	10.1109/ICSE55347.2025.00017
+146	LLM Assistance for Memory Safety	10.1109/ICSE55347.2025.00023
+147	Vulnerability Detection with Code Language Models: How Far are We?	10.1109/ICSE55347.2025.00038
+148	Combining Fine-Tuning and LLM-Based Agents for Intuitive Smart Contract Auditing with Justifications	10.1109/ICSE55347.2025.00027
+149	Towards Neural Synthesis for SMT-Assisted Proof-Oriented Programming	10.1109/ICSE55347.2025.00002
+150	Prompt-to-SQL Injections in LLM-Integrated Web Applications: Risks and Defenses	10.1109/ICSE55347.2025.00007
+151	Boosting Path-Sensitive Value Flow Analysis Via Removal of Redundant Summaries	10.1109/ICSE55347.2025.00195
+152	Dockerfile Flakiness: Characterization and Repair	10.1109/ICSE55347.2025.00238
+153	Evaluating Garbage Collection Performance Across Managed Language Runtimes	10.1109/ICSE55347.2025.00218
+154	Module-Aware Context Sensitive Pointer Analysis	10.1109/ICSE55347.2025.00227
+155	Code Comment Inconsistency Detection and Rectification Using a Large Language Model	10.1109/ICSE55347.2025.00035
+156	Context Conquers Parameters: Outperforming Proprietary Llm in Commit Message Generation	10.1109/ICSE55347.2025.00048
+157	Hedgecode: A Multi-Task Hedging Contrastive Learning Framework for Code Search	10.1109/ICSE55347.2025.00008
+158	Reasoning Runtime Behavior of a Program with LLM: How Far are We?	10.1109/ICSE55347.2025.00012
+159	Source Code Summarization in the Era of Large Language Models	10.1109/ICSE55347.2025.00034
+160	Template-Guided Program Repair in the Era of Large Language Models	10.1109/ICSE55347.2025.00030
+161	Dissecting Global Search: A Simple Yet Effective Method to Boost Individual Discrimination Testing and Repair	10.1109/ICSE55347.2025.00235
+162	FIXDRIVE: Automatically Repairing Autonomous Vehicle Driving Behaviour for $0.08 per Violation	10.1109/ICSE55347.2025.00216
+163	MARQ: Engineering Mission-Critical AI-Based Software with Automated Result Quality Adaptation	10.1109/ICSE55347.2025.00182
+164	Automated Test Generation For Smart Contracts via On-Chain Test Case Augmentation and Migration	10.1109/ICSE55347.2025.00096
+165	Boosting Code-line-level Defect Prediction with Spectrum Information and Causality Analysis	10.1109/ICSE55347.2025.00240
+166	DPFuzzer: Discovering Safety Critical Vulnerabilities for Drone Path Planners	10.1109/ICSE55347.2025.00051
+167	IRFuzzer: Specialized Fuzzing for LLVM Backend Code Generation	10.1109/ICSE55347.2025.00130
+168	Ranking Relevant Tests for Order-Dependent Flaky Tests	10.1109/ICSE55347.2025.00178
+169	Selecting Initial Seeds for Better JVM Fuzzing	10.1109/ICSE55347.2025.00028
+170	Toward a Better Understanding of Probabilistic Delta Debugging	10.1109/ICSE55347.2025.00117
+171	Tumbling Down the Rabbit Hole: How do Assisting Exploration Strategies Facilitate Grey-Box Fuzzing?	10.1109/ICSE55347.2025.00044
+172	Relationship Status: “It's Complicated” Developer-Security Expert Dynamics in Scrum	10.1109/ICSE55347.2025.00120
+173	Measuring the Runtime Performance of C++ Code Written by Humans Using Github Copilot	10.1109/ICSE55347.2025.00059
+174	A Study of Undefined Behavior Across Foreign Function Boundaries in Rust Libraries	10.1109/ICSE55347.2025.00167
+175	Cooperative Software Verification via Dynamic Program Splitting	10.1109/ICSE55347.2025.00092
+176	Exposing the Hidden Layer: Software Repositories in the Service of Seo Manipulation	10.1109/ICSE55347.2025.00147
+177	Hetrify: Efficient Verification of Heterogeneous Programs on RISC-V	10.1109/ICSE55347.2025.00081
+178	Hyperion: Unveiling DApp Inconsistencies Using LLM and Dataflow-Guided Symbolic Execution	10.1109/ICSE55347.2025.00015
+179	Smartreco: Detecting Read-Only Reentrancy via Fine-Grained Cross-DApp Analysis	10.1109/ICSE55347.2025.00057
+180	A Catalog of Micro Frontends Anti-Patterns	10.1109/ICSE55347.2025.00079
+181	PairSmell: A Novel Perspective Inspecting Software Modular Structure	10.1109/ICSE55347.2025.00072
+182	Understanding Architectural Complexity, Maintenance Burden, and Developer Sentiment -A Large-Scale Study	10.1109/ICSE55347.2025.00168
+183	RepairAgent: An Autonomous, LLM-Based Agent for Program Repair	10.1109/ICSE55347.2025.00157
+184	A Tale of Two DL Cities: When Library Tests Meet Compiler	10.1109/ICSE55347.2025.00025
+185	Iterative Generation of Adversarial Example for Deep Code Models	10.1109/ICSE55347.2025.00086
+186	On the Mistaken Assumption of Interchangeable Deep Reinforcement Learning Implementations	10.1109/ICSE55347.2025.00222
+187	$\mu \text{PRL}$: A Mutation Testing Pipeline for Deep Reinforcement Learning Based on Real Faults	10.1109/ICSE55347.2025.00036
+188	Testing and Understanding Deviation Behaviors in FHE-Hardened Machine Learning Models	10.1109/ICSE55347.2025.00107
+189	TraceFL: Interpretability-Driven Debugging in Federated Learning via Neuron Provenance	10.1109/ICSE55347.2025.00128
+190	A First Look at Conventional Commits Classification	10.1109/ICSE55347.2025.00011
+191	Chatgpt Inaccuracy Mitigation During Technical Report Understanding: Are we There Yet?	10.1109/ICSE55347.2025.00145
+192	SECRET: Towards Scalable and Efficient Code Retrieval via Segmented Deep Hashing	10.1109/ICSE55347.2025.00154
+193	Decoding the Issue Resolution Process in Practice via Issue Report Analysis: a Case Study of Firefox	10.1109/ICSE55347.2025.00241
+194	Preserving Privacy in Software Composition Analysis: A Study of Technical Solutions and Enhancements	10.1109/ICSE55347.2025.00055
+195	UML is Back. Or is it? Investigating the Past, Present, and Future of UML in Open Source Software	10.1109/ICSE55347.2025.00155
+196	Understanding the Response to Open-Source Dependency Abandonment in the npm Ecosystem	10.1109/ICSE55347.2025.00004
+197	Understanding Compiler Bugs in Real Development	10.1109/ICSE55347.2025.00068
+198	Studying Programmers Without Programming: Investigating Expertise Using Resting State fMRI	10.1109/ICSE55347.2025.00164
+199	Accessibility Issues in Ad-Driven Web Applications	10.1109/ICSE55347.2025.00171
+200	Unveiling the Energy Vampires: A Methodology for Debugging Software Energy Consumption	10.1109/ICSE55347.2025.00118
+201	Automated, Unsupervised, and Auto-Parameterized Inference of Data Patterns and Anomaly Detection	10.1109/ICSE55347.2025.00078
+202	On Prescription or Off Prescription? An Empirical Study of Community-Prescribed Security Configurations for Kubernetes	10.1109/ICSE55347.2025.00170
+203	Similar but Patched Code Considered Harmful: The Impact of Similar but Patched Code on Recurring Vulnerability Detection and How to Remove Them	10.1109/ICSE55347.2025.00110
+204	Tiver: Identifying Adaptive Versions of C/C++ Third-Party Open-Source Components Using a Code Clustering Technique	10.1109/ICSE55347.2025.00188
+205	An Exploratory Study on the Engineering of Security Features	10.1109/ICSE55347.2025.00184
+206	DesignRepair: Dual-Stream Design Guideline-Aware Frontend Repair with Large Language Models	10.1109/ICSE55347.2025.00109
+207	Fidelity of Cloud Emulators: The Imitation Game of Testing Cloud-Based Software	10.1109/ICSE55347.2025.00077
+208	Formally Verified Cloud-Scale Authorization	10.1109/ICSE55347.2025.00166
+209	The Same Only Different: On Information Modality for Configuration Performance Analysis	10.1109/ICSE55347.2025.00212
+210	3DGen: AI-Assisted Generation of Provably Correct Binary Format Parsers	10.1109/ICSE55347.2025.00173
+211	Aligning the Objective of LLM-Based Program Repair	10.1109/ICSE55347.2025.00169
+212	Revisiting Unnaturalness for Automated Program Repair in the Era of Large Language Models	10.1109/ICSE55347.2025.00089
+213	The Fact Selection Problem in LLM-Based Program Repair	10.1109/ICSE55347.2025.00162
+214	Towards Understanding the Characteristics of Code Generation Errors Made by Large Language Models	10.1109/ICSE55347.2025.00180
+215	Repository-Level Graph Representation Learning for Enhanced Security Patch Detection	10.1109/ICSE55347.2025.00121
+216	Famos: Fault Diagnosis for Microservice Systems Through Effective Multi-Modal Data Fusion	10.1109/ICSE55347.2025.00073
+217	Leveraging Large Language Models to Detect NPM Malicious Packages	10.1109/ICSE55347.2025.00146
+218	MAGIKA: AI-Powered Content-Type Detection	10.1109/ICSE55347.2025.00158
+219	Closing the Gap: A User Study on the Real-world Usefulness of AI-powered Vulnerability Detection & Repair in the IDE	10.1109/ICSE55347.2025.00126
+220	Show Me Your Code! Kill Code Poisoning: A Lightweight Method Based on Code Naturalness	10.1109/ICSE55347.2025.00247
+221	Treefix: Enabling Execution with a Tree of Prefixes	10.1109/ICSE55347.2025.00215
+222	Automated Accessibility Analysis of Dynamic Content Changes on Mobile Apps	10.1109/ICSE55347.2025.00039
+223	Janus: Detecting Rendering Bugs in Web Browsers via Visual Delta Consistency	10.1109/ICSE55347.2025.00013
+224	Chatgpt-Based Test Generation for Refactoring Engines Enhanced by Feature Analysis on Examples	10.1109/ICSE55347.2025.00210
+225	Navigating the Testing of Evolving Deep Learning Systems: An Exploratory Interview Study	10.1109/ICSE55347.2025.00106
+226	EP-Detector: Automatic Detection of Error-Prone Operation Anomalies in Android Applications	10.1109/ICSE55347.2025.00029
+227	Mobile Application Coverage: The 30% Curse and Ways Forward	10.1109/ICSE55347.2025.00142
+228	The Design Smells Breaking the Boundary between Android Variants and AOSP	10.1109/ICSE55347.2025.00062
+229	Scenario-Driven and Context-Aware Automated Accessibility Testing for Android Apps	10.1109/ICSE55347.2025.00093
+230	TacDroid: Detection of Illicit Apps Through Hybrid Analysis of UI-Based Transition Graphs	10.1109/ICSE55347.2025.00111
+231	PacDroid: A Pointer-Analysis-Centric Framework for Security Vulnerabilities in Android Apps	10.1109/ICSE55347.2025.00208
+232	ROSA: Finding Backdoors with Fuzzing	10.1109/ICSE55347.2025.00183
+233	Analyzing the Feasibility of Adopting Google's Nonce-Based CSP Solutions on Websites	10.1109/ICSE55347.2025.00193
+234	Early Detection of Performance Regressions by Bridging Local Performance Data and Architectural Models	10.1109/ICSE55347.2025.00026
+235	Practical Object-Level Sanitizer with Aggregated Memory Access and Custom Allocator	10.1109/ICSE55347.2025.00213
+236	GVI: Guided Vulnerability Imagination for Boosting Deep Vulnerability Detectors	10.1109/ICSE55347.2025.00214
+237	Decoding Secret Memorization in Code LLMs Through Token-Level Characterization	10.1109/ICSE55347.2025.00229
+238	Are We Learning the Right Features? A Framework for Evaluating DL-Based Software Vulnerability Detection Solutions	10.1109/ICSE55347.2025.00194
+239	Boosting Static Resource Leak Detection via LLM-based Resource-Oriented Intention Inference	10.1109/ICSE55347.2025.00131
+240	Weakly-Supervised Log-Based Anomaly Detection with Inexact Labels via Multi-Instance Learning	10.1109/ICSE55347.2025.00189
+241	When Quantum Meets Classical: Characterizing Hybrid Quantum-Classical Issues Discussed in Developer Forums	10.1109/ICSE55347.2025.00137
+242	Improved Detection and Diagnosis of Faults in Deep Neural Networks Using Hierarchical and Explainable Classification	10.1109/ICSE55347.2025.00224
+243	Lightweight Concolic Testing via Path-Condition Synthesis for Deep Learning Libraries	10.1109/ICSE55347.2025.00202
+244	Mock Deep Testing: Toward Separate Development of Data and Models for Deep Learning	10.1109/ICSE55347.2025.00220
+245	Rug: Turbo Llm for Rust Unit Test Generation	10.1109/ICSE55347.2025.00097
+246	An Empirical Study of Proxy Contracts at the Ethereum Ecosystem Scale	10.1109/ICSE55347.2025.00083
+247	Demystifying and Detecting Cryptographic Defects in Ethereum Smart Contracts	10.1109/ICSE55347.2025.00010
+248	Chord: Towards a Unified Detection of Blockchain Transaction Parallelism Bugs	10.1109/ICSE55347.2025.00205
+249	Definition and Detection of Centralization Defects in Smart Contracts	10.1109/ICSE55347.2025.00058
+250	Fork State-Aware Differential Fuzzing for Blockchain Consensus Implementations	10.1109/ICSE55347.2025.00085
+251	Code Cloning in Solidity Smart Contracts: Prevalence, Evolution, and Impact on Development	10.1109/ICSE55347.2025.00123
+252	Pattern-Based Generation and Adaptation of Quantum Workflows	10.1109/ICSE55347.2025.00196
+253	BSan: A Powerful Identifier-Based Hardware-Independent Memory Error Detector for COTS Binaries	10.1109/ICSE55347.2025.00020
+254	RustAssistant: Using LLMs to Fix Compilation Errors in Rust Code	10.1109/ICSE55347.2025.00022
+255	Your Fix Is My Exploit: Enabling Comprehensive DL Library API Fuzzing with Large Language Models	10.1109/ICSE55347.2025.00041
+256	BDefects4NN: A Backdoor Defect Database for Controlled Localization Studies in Neural Networks	10.1109/ICSE55347.2025.00069
+257	Leveraging Propagated Infection to Crossfire Mutants	10.1109/ICSE55347.2025.00150
