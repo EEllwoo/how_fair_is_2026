@@ -8,8 +8,9 @@ def compare(results):
     # Read all CSV files into a list of review passes (dataframes)
     dataframes = [pd.read_csv(file) for file in results]
     
-    # Set paper name as index
+    # Trim paper names and set as index
     for i in range(len(dataframes)):
+        dataframes[i]['Paper Name:'] = dataframes[i]['Paper Name:'].str.strip().str.replace('–', '-')
         dataframes[i] = dataframes[i].set_index('Paper Name:')
     
     # Count all paper title occurences across all passes
@@ -26,7 +27,7 @@ def compare(results):
 
     # Print all unmatched papers (papers not present in all passes)
     unmatched_papers = [paper for paper, count in paper_counts.items() if count < len(dataframes)]
-    print("Unmatched Papers (present in only one pass):")
+    print(f"{len(unmatched_papers)} Unmatched Papers (present in only one pass):")
     for paper in unmatched_papers:
         print(f" - {paper}")
 
