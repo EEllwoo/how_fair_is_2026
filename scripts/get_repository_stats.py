@@ -5,15 +5,22 @@ import os
 def get_repo_stats(file):
     """
     A function that extracts artefact repositories from a single results file
+
+    Args:
+        file (str): Path to CSV file.
+
+    Returns:
+        dict: a dictionary of counts for each repository service.
     """
     df = pd.read_csv(file)
     counts = {
-        "zenodo_only": 0,
-        "github_only": 0,
-        "figshare_only": 0,
-        "zenodo_and_github": 0,
-        "figshare_and_github": 0,
-        "unavailable": 0
+        "Zenodo Only": 0,
+        "GitHub Only": 0,
+        "Figshare Only": 0,
+        "Zenodo and GitHub": 0,
+        "Figshare and GitHub": 0,
+        "Anonymous GitHub Only": 0,
+        "Unavailable": 0
     }
     for _, row in df.iterrows():
         repository_links = row['Link to artefact repository (Github, Zenodo, Figshare etc)']
@@ -28,35 +35,39 @@ def get_repo_stats(file):
             doi = []
 
         if ('zenodo' in repository_links or 'zenodo' in doi) and ('github' in repository_links or 'github' in github_link):
-            counts['zenodo_and_github'] += 1
+            counts['Zenodo and GitHub'] += 1
         elif ('figshare' in repository_links or 'figshare' in doi) and ('github' in repository_links or 'github' in github_link):
-            counts['figshare_and_github'] += 1
+            counts['Figshare and GitHub'] += 1
         elif ('zenodo' in repository_links or 'zenodo' in doi):
-            counts['zenodo_only'] += 1
+            counts['Zenodo Only'] += 1
         elif ('figshare' in repository_links or 'figshare' in doi):
-            counts['figshare_only'] += 1
+            counts['Figshare Only'] += 1
         elif 'github' in repository_links or 'github' in github_link:
-            counts['github_only'] += 1
+            counts['GitHub Only'] += 1
+        elif 'anonymous' in repository_links or 'anonymous' in github_link:
+            counts["Anonymous GitHub Only"] += 1
         else:
-            counts['unavailable'] += 1
-
+            counts['Unavailable'] += 1
     return counts
 
 def plot_graph(dict):
     """
-    A function to plot the information from get_repo_stats
+    A void function to plot the information from get_repo_stats and save it to a png
+
+    Args:
+        dict (dict): A dictionary of the counts of each repository services
     """
     # ggplot likes dataframes
     df = pd.DataFrame(list(dict.items()), columns=['Repository Service', 'Count'])
     plot = ggplot(df) + aes(x="Repository Service", y="Count") + geom_col() + geom_text(aes(label='Count'), va='bottom')
-    plot.save("graphs/repos.png", width=8, height=6, dpi=300)
+    plot.save("graphs/repos.png", width=12, height=6, dpi=300)
 
 if __name__ == "__main__":
-    dir = "results/raw"
+    dir = "results/"
     results = [
         os.path.join(dir, f)
         for f in os.listdir(dir)
-        if f.endswith(".csv")
+        if f.endswith("_fixed.csv")
     ]
     first_pass = results[0]
     second_pass = results[1]
