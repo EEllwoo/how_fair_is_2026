@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: how_fair_is_2026
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Emma
+    family-names: Ellwood
+    email: esellwood1@sheffield.ac.uk
+  - given-names: Freddie
+    family-names: Butterfield
+    name-particle: Freddie
+    email: fbutterfield1@sheffield.ac.uk
+  - given-names: Jed
+    family-names: Spooner
+    email: jspooner3@sheffield.ac.uk
+  - given-names: William
+    family-names: Wood
+    email: wwood1@sheffield.ac.uk
+repository-code: 'https://github.com/EEllwoo/how_fair_is_2026.git'
+abstract: >-
+  The reproducibility package for the associated paper 'How
+  FAIR is Research Software?'
+license: Apache-2.0
