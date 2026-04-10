@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def cleaned_pandas(file_path, columns_to_drop=None, index_col=None):
+def scleaned_pandas(file_path, columns_to_drop=None, index_col=None):
     """Load a CSV file into a DataFrame and remove pre-set columns.
 
     Args:
