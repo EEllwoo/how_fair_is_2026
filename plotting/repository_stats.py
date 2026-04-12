@@ -1,6 +1,7 @@
 import pandas as pd
-from plotnine import ggplot, aes, geom_col, geom_text
+import matplotlib.pyplot as plt
 import os
+
 
 def get_repo_stats(file):
     """
@@ -20,12 +21,17 @@ def get_repo_stats(file):
         "Zenodo and GitHub": 0,
         "Figshare and GitHub": 0,
         "Anonymous GitHub Only": 0,
-        "Unavailable": 0
+        "Artefact Unavailable": 0,
+        "No Artefact": 0,
+        "Google Sites": 0,
+        "Other": 0
     }
     for _, row in df.iterrows():
         repository_links = row['Link to artefact repository (Github, Zenodo, Figshare etc)']
         github_link  = row['Please input any links to GitHub if available']
         doi = row['If F1 is met, please input the DOI of the latest version']
+        tool = row['Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?'] == 'Yes'
+        tool_unavailable = row['F1. Software is assigned a globally unique and persistent identifier (DOI)'] == 'Artefact Unavailable'
 
         if pd.isnull(repository_links):
             repository_links = []
@@ -46,23 +52,52 @@ def get_repo_stats(file):
             counts['GitHub Only'] += 1
         elif 'anonymous' in repository_links or 'anonymous' in github_link:
             counts["Anonymous GitHub Only"] += 1
+        elif not tool:
+            counts['No Artefact'] += 1
+        elif 'sites' in repository_links:
+            counts['Google Sites'] += 1
+        elif tool_unavailable or (repository_links == [] and github_link == [] and doi == []):
+            counts['Artefact Unavailable'] += 1
         else:
-            counts['Unavailable'] += 1
+            counts['Other'] += 1
     return counts
 
-def plot_graph(dict):
+def plot_graph(stats):
     """
     A void function to plot the information from get_repo_stats and save it to a png
 
     Args:
-        dict (dict): A dictionary of the counts of each repository services
+        stats (dict): A dictionary of the counts of each repository service
     """
-    # ggplot likes dataframes
-    df = pd.DataFrame(list(dict.items()), columns=['Repository Service', 'Count'])
-    plot = ggplot(df) + aes(x="Repository Service", y="Count") + geom_col() + geom_text(aes(label='Count'), va='bottom')
-    plot.save("graphs/repos.png", width=12, height=6, dpi=300)
+    plt.style.use('ggplot')
+    sorted_items = sorted(stats.items(), key=lambda item: item[1], reverse=True)
+    categories = [item[0] for item in sorted_items]
+    counts = [item[1] for item in sorted_items]
+    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#B0E0E6', '#E0BBE4', '#F7CAC9', '#E8F1D4', '#FFD1DC']
 
-if __name__ == "__main__":
+    fig, ax = plt.subplots(figsize=(12, 6))
+    bars = ax.bar(categories, counts, color=colors[:len(categories)], edgecolor='black', linewidth=0.5)
+    ax.set_xlabel('Repository Service')
+    ax.set_ylabel('Count')
+    ax.set_title('Repository Service Counts')
+    ax.set_xticks(range(len(categories)))
+    ax.set_xticklabels(categories, rotation=45, ha='right')
+
+    for bar in bars:
+        height = bar.get_height()
+        ax.annotate(
+            f'{int(height)}',
+            xy=(bar.get_x() + bar.get_width() / 2, height),
+            xytext=(0, 3),
+            textcoords='offset points',
+            ha='center',
+            va='bottom'
+        )
+
+    fig.tight_layout()
+    fig.savefig("graphs/repos.png", dpi=300)
+
+def repo_stats_main():
     dir = "results/"
     results = [
         os.path.join(dir, f)
@@ -78,4 +113,5 @@ if __name__ == "__main__":
     print(f"First pass: {first_pass_stats}")
     print(f"Second pass: {second_pass_stats}")
 
+    # Use first pass as we have all papers
     plot_graph(first_pass_stats)
