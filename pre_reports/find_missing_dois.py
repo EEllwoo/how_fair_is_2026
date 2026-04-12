@@ -1,6 +1,6 @@
 import csv
 
-PAPER_TSV = "paper_titles.tsv"
+PAPER_TSV = "results/paper_titles.tsv"
 RESULT_CSV = "results/first_doi_fixed.csv"
 
 
