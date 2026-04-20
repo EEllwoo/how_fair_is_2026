@@ -30,7 +30,7 @@ def get_repo_stats(file):
         repository_links = row['Link to artefact repository (Github, Zenodo, Figshare etc)']
         github_link  = row['Please input any links to GitHub if available']
         doi = row['If F1 is met, please input the DOI of the latest version']
-        tool = row['Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?'] == 'Yes'
+        tool = row['Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?']
         tool_unavailable = row['F1. Software is assigned a globally unique and persistent identifier (DOI)'] == 'Artefact Unavailable'
 
         if pd.isnull(repository_links):
@@ -40,34 +40,36 @@ def get_repo_stats(file):
         if pd.isnull(doi):
             doi = []
 
-        if ('zenodo' in repository_links or 'zenodo' in doi) and ('github' in repository_links or 'github' in github_link):
-            counts['Zenodo and GitHub'] += 1
-        elif ('figshare' in repository_links or 'figshare' in doi) and ('github' in repository_links or 'github' in github_link):
-            counts['Figshare and GitHub'] += 1
-        elif ('zenodo' in repository_links or 'zenodo' in doi):
-            counts['Zenodo Only'] += 1
-        elif ('figshare' in repository_links or 'figshare' in doi):
-            counts['Figshare Only'] += 1
-        elif 'github' in repository_links or 'github' in github_link:
-            counts['GitHub Only'] += 1
-        elif 'anonymous' in repository_links or 'anonymous' in github_link:
-            counts["Anonymous GitHub Only"] += 1
-        elif not tool:
-            counts['No Artefact'] += 1
-        elif 'sites' in repository_links:
-            counts['Google Sites'] += 1
-        elif tool_unavailable or (repository_links == [] and github_link == [] and doi == []):
-            counts['Artefact Unavailable'] += 1
-        else:
-            counts['Other'] += 1
+        if tool == 'Yes':
+            if tool_unavailable:
+                counts['Artefact Unavailable'] += 1
+            elif ('zenodo' in repository_links or 'zenodo' in doi) and ('github' in repository_links or 'github' in github_link):
+                counts['Zenodo and GitHub'] += 1
+            elif ('figshare' in repository_links or 'figshare' in doi) and ('github' in repository_links or 'github' in github_link):
+                counts['Figshare and GitHub'] += 1
+            elif ('zenodo' in repository_links or 'zenodo' in doi):
+                counts['Zenodo Only'] += 1
+            elif ('figshare' in repository_links or 'figshare' in doi):
+                counts['Figshare Only'] += 1
+            elif 'github' in repository_links or 'github' in github_link:
+                counts['GitHub Only'] += 1
+            elif 'anonymous' in repository_links or 'anonymous' in github_link:
+                counts["Anonymous GitHub Only"] += 1
+            elif 'sites' in repository_links:
+                counts['Google Sites'] += 1
+            else:
+                counts['Other'] += 1
+        elif tool == 'No':
+            counts["No Artefact"] += 1
     return counts
 
-def plot_graph(stats):
+def plot_graph(stats, filename):
     """
     A void function to plot the information from get_repo_stats and save it to a png
 
     Args:
         stats (dict): A dictionary of the counts of each repository service
+        filename (str): Filename for the graph
     """
     plt.style.use('ggplot')
     sorted_items = sorted(stats.items(), key=lambda item: item[1], reverse=True)
@@ -95,9 +97,12 @@ def plot_graph(stats):
         )
 
     fig.tight_layout()
-    fig.savefig("graphs/repos2.png", dpi=300)
+    fig.savefig(f"graphs/{filename}.png", dpi=300)
 
 def repo_stats_main():
+    """
+    The main function for this script
+    """
     dir = "results/"
     results = [
         os.path.join(dir, f)
@@ -113,7 +118,8 @@ def repo_stats_main():
     print(f"First pass: {first_pass_stats}")
     print(f"Second pass: {second_pass_stats}")
 
-    plot_graph(second_pass_stats)
+    plot_graph(first_pass_stats, "repos_first_pass")
+    plot_graph(second_pass_stats, "repos_second_pass")
 
 if __name__ == '__main__':
     repo_stats_main()
