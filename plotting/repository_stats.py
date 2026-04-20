@@ -95,7 +95,7 @@ def plot_graph(stats):
         )
 
     fig.tight_layout()
-    fig.savefig("graphs/repos.png", dpi=300)
+    fig.savefig("graphs/repos2.png", dpi=300)
 
 def repo_stats_main():
     dir = "results/"
@@ -113,5 +113,7 @@ def repo_stats_main():
     print(f"First pass: {first_pass_stats}")
     print(f"Second pass: {second_pass_stats}")
 
-    # Use first pass as we have all papers
-    plot_graph(first_pass_stats)
+    plot_graph(second_pass_stats)
+
+if __name__ == '__main__':
+    repo_stats_main()
