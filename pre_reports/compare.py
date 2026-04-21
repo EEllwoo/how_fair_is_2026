@@ -64,10 +64,10 @@ def compare(results):
 
 
 if __name__ == "__main__":
-    dir = "../results"
+    dir = "results/"
     results = [
         os.path.join(dir, f)
         for f in os.listdir(dir)
-        if f.endswith(".csv")
+        if f.endswith("_fixed.csv")
     ]
     compare(results)
