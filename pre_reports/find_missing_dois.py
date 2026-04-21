@@ -75,20 +75,20 @@ def doi_report(result_csv=RESULT_CSV, paper_tsv=PAPER_TSV):
         missing.append((idx, title, doi))
 
 
-    if missing:
-        print("Missing DOI rows from paper_titles.tsv (no DOI and no title match):")
-        for idx, title, doi in missing:
-            print(f"{idx}:({title})")
+    # if missing:
+    #     print("Missing DOI rows from paper_titles.tsv (no DOI and no title match):")
+    #      for idx, title, doi in missing:
+    #          print(f"{idx}:({title})")
 
-    if found_by_title:
-        print("\nRows where DOI was missing but title matched in results:")
-        for idx, title, doi in found_by_title:
-            print(f"{idx}: {doi} ({title})")
+    # if found_by_title:
+    #     print("\nRows where DOI was missing but title matched in results:")
+    #     for idx, title, doi in found_by_title:
+    #         print(f"{idx}: {doi} ({title})")
 
-    if missing_no_doi:
-        print("\npaper_titles rows with an empty DOI:")
-        for idx, title in missing_no_doi:
-            print(f"{idx}: {title}")
+    # if missing_no_doi:
+    #     print("\npaper_titles rows with an empty DOI:")
+    #     for idx, title in missing_no_doi:
+    #         print(f"{idx}: {title}")
             
     print(f"Paper titles: {len(papers)}")
     print(f"Result DOIs: {len(result_dois)}")
