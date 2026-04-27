@@ -2,10 +2,10 @@
 
 Tools and scripts used in the process of gathering results for our paper
 
-Code names and functions:
+# Code names and functions:
 
 
-**Plotting Scripts**
+**Plotting Scripts:**
 
 FAIR_compliance.py - This file finds how many of the reviewed papers are fully FAIR compliant, and prints a summary of the results
 
@@ -14,7 +14,7 @@ artefact_availability.py - This file collects and plots how many of the reviewed
 repository_stats.py - This file collects and plots some information on our results, specifically which repositories are used
 
 
-**Processing Scripts**
+**Processing Scripts:**
 
 compare_passes.py - A script to compare two or more passes of our FAIR evaluation over a set of papers, and find disagreements between the different passes. To use: download compare_passes.py, put all evaluation results in the form of seperate CSV files into the 'results' folder, and run compare.py. The results of the comparison will be output to 'comparison.csv', with the disagreements in the form of [evaluation 1 answer] | [evaluation 2 answer] | ... | [evaluation n answer]
 
@@ -27,7 +27,7 @@ pre_process.py - This file converts a CSV file into a dataframe and does some ba
 scraper.py - This file collects all the paper titles and their DOIs from the IEEE website. **I don't think we should keep this in the final repository, it doesnt seem FAIR compliant**
 
 
-**Analysis Notebooks**
+**Analysis Notebooks:**
 
 data_reports.ipynb - Fixes any issues with our results CSVs (**i think?**)
 
