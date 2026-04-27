@@ -1,3 +1,7 @@
+"""
+This file finds how many of the reviewed papers are fully FAIR compliant.
+"""
+
 import pandas as pd
 import numpy as np
 F = ["F1. Software is assigned a globally unique and persistent identifier (DOI)",

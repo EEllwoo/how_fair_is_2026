@@ -1,5 +1,7 @@
-# This file is designed to compare any number of CSVs containing the results 
-# of a pass of our artefact review over a set of papers
+"""
+This file is designed to compare any number of CSVs containing the results 
+of a pass of our artefact review over a set of papers.
+"""
 
 import pandas as pd
 import os
