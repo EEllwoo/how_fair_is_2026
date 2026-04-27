@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import re
+from pathlib import Path
 
 
 def get_repo_stats(file):
@@ -62,40 +64,70 @@ def get_repo_stats(file):
             counts['Other'] += 1
     return counts
 
-def plot_graph(stats):
+def plot_graph(first_pass_stats, second_pass_stats):
     """
-    A void function to plot the information from get_repo_stats and save it to a png
+    Plot first and second pass repository service counts side by side and save to PNG.
 
     Args:
-        stats (dict): A dictionary of the counts of each repository service
+        first_pass_stats (dict): Repository service counts for the first pass.
+        second_pass_stats (dict): Repository service counts for the second pass.
     """
     plt.style.use('ggplot')
-    sorted_items = sorted(stats.items(), key=lambda item: item[1], reverse=True)
-    categories = [item[0] for item in sorted_items]
-    counts = [item[1] for item in sorted_items]
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#B0E0E6', '#E0BBE4', '#F7CAC9', '#E8F1D4', '#FFD1DC']
+    categories = sorted(
+        set(first_pass_stats) | set(second_pass_stats),
+        key=lambda category: max(first_pass_stats.get(category, 0), second_pass_stats.get(category, 0)),
+        reverse=True
+    )
+    first_counts = [first_pass_stats.get(category, 0) for category in categories]
+    second_counts = [second_pass_stats.get(category, 0) for category in categories]
+    x_positions = range(len(categories))
+    bar_width = 0.4
 
-    fig, ax = plt.subplots(figsize=(12, 6))
-    bars = ax.bar(categories, counts, color=colors[:len(categories)], edgecolor='black', linewidth=0.5)
+    fig, ax = plt.subplots(figsize=(14, 7))
+    first_bars = ax.bar(
+        [position - bar_width / 2 for position in x_positions],
+        first_counts,
+        width=bar_width,
+        color='#4ECDC4',
+        edgecolor='black',
+        linewidth=0.5,
+        label='First Pass'
+    )
+    second_bars = ax.bar(
+        [position + bar_width / 2 for position in x_positions],
+        second_counts,
+        width=bar_width,
+        color='#FF6B6B',
+        edgecolor='black',
+        linewidth=0.5,
+        label='Second Pass'
+    )
+
     ax.set_xlabel('Repository Service')
     ax.set_ylabel('Count')
-    ax.set_title('Repository Service Counts')
-    ax.set_xticks(range(len(categories)))
+    ax.set_title('Repository Service Counts by Pass')
+    ax.set_xticks(list(x_positions))
     ax.set_xticklabels(categories, rotation=45, ha='right')
+    ax.legend()
 
-    for bar in bars:
-        height = bar.get_height()
-        ax.annotate(
-            f'{int(height)}',
-            xy=(bar.get_x() + bar.get_width() / 2, height),
-            xytext=(0, 3),
-            textcoords='offset points',
-            ha='center',
-            va='bottom'
-        )
+    for bars in (first_bars, second_bars):
+        for bar in bars:
+            height = bar.get_height()
+            ax.annotate(
+                f'{int(height)}',
+                xy=(bar.get_x() + bar.get_width() / 2, height),
+                xytext=(0, 3),
+                textcoords='offset points',
+                ha='center',
+                va='bottom'
+            )
 
     fig.tight_layout()
-    fig.savefig("graphs/repos2.png", dpi=300)
+    graphs_dir = Path("graphs")
+    graphs_dir.mkdir(exist_ok=True)
+    title = ax.get_title()
+    safe_title = re.sub(r"[^A-Za-z0-9]+", "_", title.strip()).strip("_").lower() or "plot"
+    fig.savefig(graphs_dir / f"{safe_title}.png", dpi=300, bbox_inches="tight")
 
 def repo_stats_main():
     dir = "results/"
@@ -113,7 +145,7 @@ def repo_stats_main():
     print(f"First pass: {first_pass_stats}")
     print(f"Second pass: {second_pass_stats}")
 
-    plot_graph(second_pass_stats)
+    plot_graph(first_pass_stats, second_pass_stats)
 
 if __name__ == '__main__':
     repo_stats_main()
