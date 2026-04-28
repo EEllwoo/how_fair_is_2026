@@ -53,7 +53,14 @@ def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Sec
         label1 (str): First pass legend label.
         label2 (str): Second pass legend label.
     """
-
+    plt.rcParams.update({
+        "figure.figsize": (3.5, 2.5),  # Set exact size
+        "font.size": 8,                # Match paper caption size
+        "axes.labelsize": 9,
+        "legend.fontsize": 7,
+        "savefig.bbox": 'tight',       # Removes wasted white space
+        "lines.linewidth": 1.2
+    })
     plt.style.use('ggplot')
     categories = sorted(set(stats1) | set(stats2), key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0)), reverse=True)
     values1 = [stats1.get(category, 0) for category in categories]

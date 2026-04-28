@@ -5,6 +5,9 @@ This file collects and plots some information on our results
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import numpy as np
+import re
+from pathlib import Path
 
 
 def get_repo_stats_available(file):
@@ -95,29 +98,50 @@ def get_repo_stats_available(file):
             pass
     return counts_available, counts_unavailable
 
-def plot_graph(stats, filename, title):
+def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass'):
     """
-    A void function to plot the information from get_repo_stats and save it to a png
+    Plot grouped bar charts for two repository statistics dictionaries and save the result.
 
     Args:
-        stats (dict): A dictionary of the counts_available of each repository service
-        filename (str): Filename for the graph
+        stats1 (dict): Counts for the first pass.
+        stats2 (dict): Counts for the second pass.
+        filename (str): Filename for the graph output.
+        title (str): Title for the chart.
+        label1 (str): Label for the first set of bars.
+        label2 (str): Label for the second set of bars.
     """
+    plt.rcParams.update({
+        "figure.figsize": (3.5, 2.5),  # Set exact size
+        "font.size": 8,                # Match paper caption size
+        "axes.labelsize": 9,
+        "legend.fontsize": 7,
+        "savefig.bbox": 'tight',       # Removes wasted white space
+        "lines.linewidth": 1.2
+    })
     plt.style.use('ggplot')
-    sorted_items = sorted(stats.items(), key=lambda item: item[1], reverse=True)
-    categories = [item[0] for item in sorted_items]
-    counts_available = [item[1] for item in sorted_items]
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#B0E0E6', '#E0BBE4', '#F7CAC9', '#E8F1D4', '#FFD1DC']
+    categories = sorted(
+        set(stats1) | set(stats2),
+        key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0)),
+        reverse=True,
+    )
+    values1 = [stats1.get(category, 0) for category in categories]
+    values2 = [stats2.get(category, 0) for category in categories]
 
-    fig, ax = plt.subplots(figsize=(12, 6))
-    bars = ax.bar(categories, counts_available, color=colors[:len(categories)], edgecolor='black', linewidth=0.5)
+    x = np.arange(len(categories))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(14, 7))
+    bars1 = ax.bar(x - width / 2, values1, width, label=label1, color='#4ECDC4', edgecolor='black', linewidth=0.5)
+    bars2 = ax.bar(x + width / 2, values2, width, label=label2, color='#FF6B6B', edgecolor='black', linewidth=0.5)
+
     ax.set_xlabel('Repository Service')
     ax.set_ylabel('Count')
     ax.set_title(title)
-    ax.set_xticks(range(len(categories)))
+    ax.set_xticks(x)
     ax.set_xticklabels(categories, rotation=45, ha='right')
+    ax.legend()
 
-    for bar in bars:
+    for bar in list(bars1) + list(bars2):
         height = bar.get_height()
         ax.annotate(
             f'{int(height)}',
@@ -129,7 +153,11 @@ def plot_graph(stats, filename, title):
         )
 
     fig.tight_layout()
-    fig.savefig(f"graphs/{filename}.png", dpi=300)
+    graphs_dir = Path("graphs")
+    graphs_dir.mkdir(exist_ok=True)
+    title = ax.get_title()
+    safe_title = re.sub(r"[^A-Za-z0-9]+", "_", title.strip()).strip("_").lower() or "plot"
+    fig.savefig(graphs_dir / f"{safe_title}.png", dpi=300, bbox_inches="tight")
 
 def repo_stats_main():
     """
@@ -152,10 +180,20 @@ def repo_stats_main():
     print(f"Second pass (out of available papers): {second_pass_available}")
     print(f"Second pass (out of unavailable papers): {second_pass_unavailable}")
 
-    plot_graph(first_pass_available, "repos_first_pass_available", "Repository Service Counts (from available artefacts) (first pass)")
-    plot_graph(second_pass_available, "repos_second_pass_available", "Repository Service Counts (from available artefacts) (second pass)")
-    plot_graph(first_pass_unavailable, "repos_first_pass_unavailable", "Repository Service Counts (from unavailable artefacts) (first pass)")
-    plot_graph(second_pass_unavailable, "repos_second_pass_unavailable", "Repository Service Counts (from unavailable artefacts) (second pass)")
+    plot_graph(
+        first_pass_available,
+        second_pass_available,
+        "Repository Service Counts (available artefacts): First Pass vs Second Pass",
+        label1='First Pass',
+        label2='Second Pass',
+    )
+    plot_graph(
+        first_pass_unavailable,
+        second_pass_unavailable,
+        "Repository Service Counts (unavailable artefacts): First Pass vs Second Pass",
+        label1='First Pass',
+        label2='Second Pass',
+    )
 
 if __name__ == '__main__':
     repo_stats_main()
