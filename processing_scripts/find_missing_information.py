@@ -1,9 +1,14 @@
+"""
+This file compares a csv with a reference sheet of all the paper titles with their artefact DOIs to find any papers missing
+from the CSV.
+"""
+
 import csv
 
 PAPER_TSV = "results/paper_titles.tsv"
 RESULT_CSV = "results/first_doi_fixed.csv"
 
-
+# Match the papers to their artefact DOI
 def load_paper_dois(path):
     papers = []
     with open(path, encoding="utf-8", newline='') as f:
@@ -17,6 +22,7 @@ def load_paper_dois(path):
 
 import re
 
+# Normalises a piece of text (lowercases and removes extra spaces)
 def normalize_text(text):
     if text is None:
         return ""
@@ -24,7 +30,7 @@ def normalize_text(text):
     text = re.sub(r"\s+", " ", text)
     return text
 
-
+# Finds all unique DOIs in a CSV file
 def load_result_dois(path):
     dois = set()
     with open(path, encoding="utf-8", newline='') as f:
@@ -35,7 +41,7 @@ def load_result_dois(path):
                 dois.add(doi)
     return dois
 
-
+# Finds all unique titles in a CSV file
 def load_result_titles(path):
     titles = set()
     with open(path, encoding="utf-8", newline='') as f:
@@ -45,7 +51,8 @@ def load_result_titles(path):
             titles.add(normalize_text(paper_name))
     return titles
 
-
+# Compares a CSV file with the reference list and finds discrepancies between the two, first using the DOI, and then if that is
+# impossible, it uses the normalised title. Then prints the results
 def doi_report(result_csv=RESULT_CSV, paper_tsv=PAPER_TSV):
     papers = load_paper_dois(paper_tsv)
     result_dois = load_result_dois(result_csv)

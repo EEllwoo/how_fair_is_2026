@@ -1,3 +1,7 @@
+"""
+This file converts a CSV file into a dataframe and does some basic pre-processing.
+"""
+
 import pandas as pd
 
 
