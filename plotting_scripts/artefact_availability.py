@@ -1,3 +1,9 @@
+"""
+This file collects and plots how many of the reviewed papers we found had artefacts we could find.
+Note that papers which did not produce artefacts were not scored negatively here, only papers that
+did produce software artefacts but that were not accessible to us for whatever reason.
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np

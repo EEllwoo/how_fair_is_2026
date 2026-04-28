@@ -1,3 +1,7 @@
+"""
+This file collects all the paper titles and their DOIs from the IEEE website
+"""
+
 import requests
 import json
 
@@ -21,7 +25,7 @@ session = requests.Session()
 session.headers.update(HEADERS)
 session.cookies.update(COOKIES)
 
-
+# Fetches all of the paper titles and artefact DOIs from the IEEE website
 def fetch_titles(isnumber="11029718", rows_per_page=100):
     all_papers = []
     page = 1
@@ -73,7 +77,7 @@ def fetch_titles(isnumber="11029718", rows_per_page=100):
 
     return all_papers
 
-
+# Runs the paper title and artefact DOI fetching function and prints the results
 if __name__ == "__main__":
     papers = fetch_titles()
 

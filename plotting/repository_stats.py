@@ -2,48 +2,38 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import re
+from pathlib import Path
 
 
 def get_repo_stats(file):
     """
-    A function that extracts artefact repositories from a single results file.
-
-    Since some papers had associated repository sites but the artefact itself was unavailable e.g. anonymous GitHub 
-    expiration. We have split the counts into available and unavailable
+    A function that extracts artefact repositories from a single results file
 
     Args:
         file (str): Path to CSV file.
 
     Returns:
-        dict: a dictionary of counts_available and counts_unavailable for each repository service.
+        dict: a dictionary of counts for each repository service.
     """
     df = pd.read_csv(file)
-    counts_available = {
+    counts = {
         "Zenodo Only": 0,
         "GitHub Only": 0,
         "Figshare Only": 0,
         "Zenodo and GitHub": 0,
         "Figshare and GitHub": 0,
         "Anonymous GitHub Only": 0,
+        "Artefact Unavailable": 0,
+        "No Artefact": 0,
         "Google Sites": 0,
         "Other": 0
-    }
-
-    counts_unavailable = {
-        "Zenodo Only": 0,
-        "GitHub Only": 0,
-        "Figshare Only": 0,
-        "Zenodo and GitHub": 0,
-        "Figshare and GitHub": 0,
-        "Anonymous GitHub Only": 0,
-        "Google Sites": 0,
-        "Not Found": 0 # If there were truly no repo sites then we say it was unavailable under the pretense it could not be found
     }
     for _, row in df.iterrows():
         repository_links = row['Link to artefact repository (Github, Zenodo, Figshare etc)']
         github_link  = row['Please input any links to GitHub if available']
         doi = row['If F1 is met, please input the DOI of the latest version']
-        tool = row['Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?']
+        tool = row['Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?'] == 'Yes'
         tool_unavailable = row['F1. Software is assigned a globally unique and persistent identifier (DOI)'] == 'Artefact Unavailable'
 
         if pd.isnull(repository_links):
@@ -53,46 +43,29 @@ def get_repo_stats(file):
         if pd.isnull(doi):
             doi = []
 
-        if tool == 'Yes':
-            if not tool_unavailable:
-                if ('zenodo' in repository_links or 'zenodo' in doi) and ('github' in repository_links or 'github' in github_link):
-                    counts_available['Zenodo and GitHub'] += 1
-                elif ('figshare' in repository_links or 'figshare' in doi) and ('github' in repository_links or 'github' in github_link):
-                    counts_available['Figshare and GitHub'] += 1
-                elif ('zenodo' in repository_links or 'zenodo' in doi):
-                    counts_available['Zenodo Only'] += 1
-                elif ('figshare' in repository_links or 'figshare' in doi):
-                    counts_available['Figshare Only'] += 1
-                elif 'github' in repository_links or 'github' in github_link:
-                    counts_available['GitHub Only'] += 1
-                elif 'anonymous' in repository_links or 'anonymous' in github_link:
-                    counts_available["Anonymous GitHub Only"] += 1
-                elif 'sites' in repository_links:
-                    counts_available['Google Sites'] += 1
-                else:
-                    counts_available['Other'] += 1
-            else:
-                if ('zenodo' in repository_links or 'zenodo' in doi) and ('github' in repository_links or 'github' in github_link):
-                    counts_unavailable['Zenodo and GitHub'] += 1
-                elif ('figshare' in repository_links or 'figshare' in doi) and ('github' in repository_links or 'github' in github_link):
-                    counts_unavailable['Figshare and GitHub'] += 1
-                elif ('zenodo' in repository_links or 'zenodo' in doi):
-                    counts_unavailable['Zenodo Only'] += 1
-                elif ('figshare' in repository_links or 'figshare' in doi):
-                    counts_unavailable['Figshare Only'] += 1
-                elif 'github' in repository_links or 'github' in github_link:
-                    counts_unavailable['GitHub Only'] += 1
-                elif 'anonymous' in repository_links or 'anonymous' in github_link:
-                    counts_unavailable["Anonymous GitHub Only"] += 1
-                elif 'sites' in repository_links:
-                    counts_unavailable['Google Sites'] += 1
-                else:
-                    counts_unavailable['Not Found'] += 1
-        elif tool == 'No':
-            pass
-    return counts_available, counts_unavailable
+        if ('zenodo' in repository_links or 'zenodo' in doi) and ('github' in repository_links or 'github' in github_link):
+            counts['Zenodo and GitHub'] += 1
+        elif ('figshare' in repository_links or 'figshare' in doi) and ('github' in repository_links or 'github' in github_link):
+            counts['Figshare and GitHub'] += 1
+        elif ('zenodo' in repository_links or 'zenodo' in doi):
+            counts['Zenodo Only'] += 1
+        elif ('figshare' in repository_links or 'figshare' in doi):
+            counts['Figshare Only'] += 1
+        elif 'github' in repository_links or 'github' in github_link:
+            counts['GitHub Only'] += 1
+        elif 'anonymous' in repository_links or 'anonymous' in github_link:
+            counts["Anonymous GitHub Only"] += 1
+        elif not tool:
+            counts['No Artefact'] += 1
+        elif 'sites' in repository_links:
+            counts['Google Sites'] += 1
+        elif tool_unavailable or (repository_links == [] and github_link == [] and doi == []):
+            counts['Artefact Unavailable'] += 1
+        else:
+            counts['Other'] += 1
+    return counts
 
-def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Second Pass'):
+def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass'):
     """
     Plot grouped bar charts for two repository statistics dictionaries and save the result.
 
@@ -139,12 +112,13 @@ def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Sec
         )
 
     fig.tight_layout()
-    fig.savefig(f"graphs/{filename}.png", dpi=300)
+    graphs_dir = Path("graphs")
+    graphs_dir.mkdir(exist_ok=True)
+    title = ax.get_title()
+    safe_title = re.sub(r"[^A-Za-z0-9]+", "_", title.strip()).strip("_").lower() or "plot"
+    fig.savefig(graphs_dir / f"{safe_title}.png", dpi=300, bbox_inches="tight")
 
 def repo_stats_main():
-    """
-    The main function for this script
-    """
     dir = "results/"
     results = [
         os.path.join(dir, f)
@@ -157,15 +131,14 @@ def repo_stats_main():
     first_pass_available, first_pass_unavailable = get_repo_stats(first_pass)
     second_pass_available, second_pass_unavailable = get_repo_stats(second_pass)
 
-    print(f"First pass (out of available papers): {first_pass_available}")
-    print(f"First pass (out of unavailable papers): {first_pass_unavailable}")
-    print(f"Second pass (out of available papers): {second_pass_available}")
-    print(f"Second pass (out of unavailable papers): {second_pass_unavailable}")
+    print(f"First pass (out of available artefacts): {first_pass_available}")
+    print(f"First pass (out of unavailable artefacts): {first_pass_unavailable}")
+    print(f"Second pass (out of available artefacts): {second_pass_available}")
+    print(f"Second pass (out of unavailable artefacts): {second_pass_unavailable}")
 
     plot_graph(
         first_pass_available,
         second_pass_available,
-        "repos_available_comparison",
         "Repository Service Counts (available artefacts): First Pass vs Second Pass",
         label1='First Pass',
         label2='Second Pass',
@@ -173,7 +146,6 @@ def repo_stats_main():
     plot_graph(
         first_pass_unavailable,
         second_pass_unavailable,
-        "repos_unavailable_comparison",
         "Repository Service Counts (unavailable artefacts): First Pass vs Second Pass",
         label1='First Pass',
         label2='Second Pass',
