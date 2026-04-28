@@ -3,9 +3,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from plotting.FAIR_compliance import FAIR_CRITERIA
-from pre_reports.missing_papers import normalize_text
-from pre_reports.pre_process import scleaned_pandas
+from plotting_scripts.FAIR_compliance import FAIR_CRITERIA
+from processing_scripts.fix_missing_information import normalize_text
+from processing_scripts.pre_process import scleaned_pandas
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
