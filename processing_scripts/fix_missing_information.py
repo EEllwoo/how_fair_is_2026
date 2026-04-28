@@ -74,11 +74,4 @@ def find_and_fix_missing_papers(
 
     return corrected_rows
 
-# Runs the script on our second pass results
-if __name__ == "__main__":
-    fixed = find_and_fix_missing_papers(
-        tsv_path="paper_titles.tsv",
-        csv_path="results/second.csv",
-        output_csv_path="results/second_fixed.csv"
-    )
-    print(f"Corrected {len(fixed)} rows: {fixed}")
+
