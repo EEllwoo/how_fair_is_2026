@@ -1,0 +1,103 @@
+"""Plot distribution of FAIR criteria met per paper."""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import cm
+from matplotlib.colors import Normalize
+from plotting_scripts.FAIR_compliance import is_criterion_compliant, get_value_safely
+from plotting_scripts.fair_letter_compliance import save_plot
+
+
+def plot_fair_criteria_distribution(df, F, A, I, R):
+    """
+    Generate bar chart showing distribution of papers by number of FAIR criteria met.
+    Bar colors indicate DOI proportion within each criteria-count group.
+    
+    Args:
+        df: DataFrame with FAIR evaluation results
+        F, A, I, R: Lists of criteria for each FAIR letter
+    """
+    all_criteria = F + A + I + R
+    n_criteria = len(all_criteria)
+    doi_criterion = "F1. Software is assigned a globally unique and persistent identifier (DOI)"
+
+    # Compute per-paper counts
+    criteria_met_per_paper = []
+    has_doi_per_paper = []
+
+    for paper_name in df.index:
+        met_count = sum(is_criterion_compliant(df, paper_name, criterion) for criterion in all_criteria)
+        criteria_met_per_paper.append(met_count)
+
+        doi_value = get_value_safely(df, paper_name, doi_criterion) if doi_criterion in df.columns else "No"
+        has_doi_per_paper.append(str(doi_value).strip().lower() == "yes")
+
+    plot_df = pd.DataFrame({
+        "criteria_met": criteria_met_per_paper,
+        "has_doi": has_doi_per_paper
+    })
+
+    # Build 1..n bins, keeping zero-count bins visible
+    group_counts = plot_df["criteria_met"].value_counts().reindex(range(1, n_criteria + 1), fill_value=0)
+    doi_counts = plot_df.groupby("criteria_met")["has_doi"].sum().reindex(range(1, n_criteria + 1), fill_value=0)
+
+    # DOI proportion in each group (0 when group is empty)
+    doi_proportions = (doi_counts / group_counts.replace(0, np.nan)).fillna(0.0)
+
+    # Color bars by DOI proportion
+    norm = Normalize(vmin=0, vmax=1)
+    cmap = cm.get_cmap("YlGn")
+    bar_colors = cmap(norm(doi_proportions.values))
+
+    fig, ax = plt.subplots(figsize=(14, 6))
+    bars = ax.bar(
+        group_counts.index,
+        group_counts.values,
+        color=bar_colors,
+        alpha=0.9,
+        edgecolor="black"
+    )
+
+    ax.set_xlabel("Number of FAIR criteria met", fontsize=12)
+    ax.set_ylabel("Number of papers", fontsize=12)
+    ax.set_title("Distribution of FAIR Criteria Met per Paper (bar color = DOI proportion in group)", 
+                 fontsize=14, fontweight="bold")
+    ax.set_xticks(range(1, n_criteria + 1))
+
+    # Add paper-count labels on top of bars
+    for bar in bars:
+        height = bar.get_height()
+        if height > 0:
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                height,
+                f"{int(height)}",
+                ha="center",
+                va="bottom",
+                fontsize=9
+            )
+
+    # Add DOI proportion labels inside bars when possible
+    for x_val, total, doi_prop in zip(group_counts.index, group_counts.values, doi_proportions.values):
+        if total > 0:
+            ax.text(
+                x_val,
+                max(total * 0.55, 0.2),
+                f"DOI: {doi_prop:.0%}",
+                ha="center",
+                va="center",
+                fontsize=8,
+                color="black"
+            )
+
+    # Colorbar legend for DOI proportions
+    sm = cm.ScalarMappable(norm=norm, cmap=cmap)
+    sm.set_array([])
+    cbar = plt.colorbar(sm, ax=ax)
+    cbar.set_label("DOI proportion in this criteria-count group", fontsize=10)
+
+    plt.tight_layout()
+    save_plot(fig)
+    plt.style.use("ggplot")
+    plt.show()
