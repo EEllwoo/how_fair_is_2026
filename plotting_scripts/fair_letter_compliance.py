@@ -30,14 +30,15 @@ def save_plot(fig, title=None, graphs_dir=None):
     print(f"Saved plot to {output_path}")
 
 
-def plot_fair_letter_compliance(first_pass_df, second_pass_df=None):
+def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_df=None):
     """
     Generate bar chart showing overall FAIR compliance rates by letter (F, A, I, R).
-    If both passes are supplied, display grouped bars side-by-side.
+    If multiple passes are supplied, display grouped bars side-by-side.
     
     Args:
         first_pass_df: DataFrame with first-pass FAIR evaluation results
         second_pass_df: Optional DataFrame with second-pass FAIR evaluation results
+        optimistic_df: Optional DataFrame with optimistic merged FAIR evaluation results
     """
     first_pass_compliance = calculate_all_letter_compliance_rates(first_pass_df)
     letters = list(first_pass_compliance.keys())
@@ -45,7 +46,7 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None):
 
     fig, ax = plt.subplots(figsize=(12, 6))
 
-    if second_pass_df is None:
+    if second_pass_df is None and optimistic_df is None:
         rates = list(first_pass_compliance.values())
         bars = ax.bar(
             letters,
@@ -65,7 +66,7 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None):
                 va="bottom",
                 fontsize=10,
             )
-    else:
+    elif optimistic_df is None:
         second_pass_compliance = calculate_all_letter_compliance_rates(second_pass_df)
         first_rates = [first_pass_compliance[letter] for letter in letters]
         second_rates = [second_pass_compliance[letter] for letter in letters]
@@ -112,6 +113,67 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None):
                     ha="center",
                     va="bottom",
                     fontsize=9,
+                )
+    else:
+        second_pass_compliance = calculate_all_letter_compliance_rates(second_pass_df)
+        optimistic_compliance = calculate_all_letter_compliance_rates(optimistic_df)
+        first_rates = [first_pass_compliance[letter] for letter in letters]
+        second_rates = [second_pass_compliance[letter] for letter in letters]
+        optimistic_rates = [optimistic_compliance[letter] for letter in letters]
+        x = np.arange(len(letters))
+        width = 0.26
+
+        first_bars = ax.bar(
+            x - width,
+            first_rates,
+            width,
+            label="First pass",
+            color=letter_colors,
+            alpha=0.85,
+            edgecolor="black",
+        )
+        second_bars = ax.bar(
+            x,
+            second_rates,
+            width,
+            label="Second pass",
+            color=letter_colors,
+            alpha=0.55,
+            hatch="//",
+            edgecolor="black",
+        )
+        optimistic_bars = ax.bar(
+            x + width,
+            optimistic_rates,
+            width,
+            label="Optimistic",
+            color=letter_colors,
+            alpha=0.35,
+            hatch="xx",
+            edgecolor="black",
+        )
+
+        ax.set_xticks(x)
+        ax.set_xticklabels(letters)
+        ax.legend(
+            handles=[
+                Patch(facecolor="white", edgecolor="black", label="First pass"),
+                Patch(facecolor="white", edgecolor="black", hatch="//", label="Second pass"),
+                Patch(facecolor="white", edgecolor="black", hatch="xx", label="Optimistic"),
+            ],
+            title="Pass",
+        )
+
+        for bar_group in (first_bars, second_bars, optimistic_bars):
+            for bar in bar_group:
+                height = bar.get_height()
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    height,
+                    f"{height:.1f}%",
+                    ha="center",
+                    va="bottom",
+                    fontsize=8,
                 )
 
     ax.set_ylabel("Compliance Rate (%)", fontsize=12)
