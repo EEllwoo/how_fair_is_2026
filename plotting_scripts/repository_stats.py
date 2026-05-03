@@ -4,7 +4,10 @@ This file collects and plots some information on our results
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import os
+import shutil
+from pathlib import Path
 
 
 def get_repo_stats_available(file):
@@ -129,7 +132,28 @@ def plot_graph(stats, filename, title):
         )
 
     fig.tight_layout()
-    fig.savefig(f"graphs/{filename}.png", dpi=300)
+    graphs_dir = Path("graphs")
+    pgf_dir = graphs_dir / "pgf"
+    graphs_dir.mkdir(exist_ok=True)
+    pgf_dir.mkdir(exist_ok=True)
+
+    png_output_path = graphs_dir / f"{filename}.png"
+    pgf_output_path = pgf_dir / f"{filename}.pgf"
+
+    fig.savefig(png_output_path, dpi=300)
+    tex_candidates = ("pdflatex", "lualatex", "xelatex")
+    selected_tex = next((tex for tex in tex_candidates if shutil.which(tex)), None)
+    if selected_tex is None:
+        print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
+    else:
+        original_tex = mpl.rcParams.get("pgf.texsystem", "xelatex")
+        try:
+            mpl.rcParams["pgf.texsystem"] = selected_tex
+            fig.savefig(pgf_output_path)
+        except Exception as exc:
+            print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
+        finally:
+            mpl.rcParams["pgf.texsystem"] = original_tex
 
 def repo_stats_main():
     """

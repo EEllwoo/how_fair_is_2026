@@ -1,7 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import os
 import re
+import shutil
 from pathlib import Path
 
 
@@ -124,10 +126,28 @@ def plot_graph(first_pass_stats, second_pass_stats):
 
     fig.tight_layout()
     graphs_dir = Path("graphs")
+    pgf_dir = graphs_dir / "pgf"
     graphs_dir.mkdir(exist_ok=True)
+    pgf_dir.mkdir(exist_ok=True)
     title = ax.get_title()
     safe_title = re.sub(r"[^A-Za-z0-9]+", "_", title.strip()).strip("_").lower() or "plot"
-    fig.savefig(graphs_dir / f"{safe_title}.png", dpi=300, bbox_inches="tight")
+    png_output_path = graphs_dir / f"{safe_title}.png"
+    pgf_output_path = pgf_dir / f"{safe_title}.pgf"
+
+    fig.savefig(png_output_path, dpi=300, bbox_inches="tight")
+    tex_candidates = ("pdflatex", "lualatex", "xelatex")
+    selected_tex = next((tex for tex in tex_candidates if shutil.which(tex)), None)
+    if selected_tex is None:
+        print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
+    else:
+        original_tex = mpl.rcParams.get("pgf.texsystem", "xelatex")
+        try:
+            mpl.rcParams["pgf.texsystem"] = selected_tex
+            fig.savefig(pgf_output_path, bbox_inches="tight")
+        except Exception as exc:
+            print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
+        finally:
+            mpl.rcParams["pgf.texsystem"] = original_tex
 
 def repo_stats_main():
     dir = "results/"

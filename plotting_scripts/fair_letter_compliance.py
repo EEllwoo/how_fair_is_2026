@@ -1,21 +1,25 @@
 """Plot overall FAIR compliance by letter."""
 
 import re
+import shutil
 from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 from matplotlib.patches import Patch
 from plotting_scripts.FAIR_compliance import calculate_all_letter_compliance_rates
 from processing_scripts.pre_process import scleaned_pandas
 
 
-def save_plot(fig, title=None, graphs_dir=None):
-    """Save a matplotlib figure to a PNG file."""
+def save_plot(fig, title=None, graphs_dir=None, tex_engine=None):
+    """Save a matplotlib figure to PNG and optionally PGF in separate folders."""
     if graphs_dir is None:
         graphs_dir = Path("graphs")
     graphs_dir.mkdir(exist_ok=True)
-    
+    pgf_dir = graphs_dir / "pgf"
+    pgf_dir.mkdir(exist_ok=True)
+
     if title is None:
         if fig._suptitle is not None:
             title = fig._suptitle.get_text()
@@ -25,9 +29,29 @@ def save_plot(fig, title=None, graphs_dir=None):
             title = "plot"
 
     safe_title = re.sub(r"[^A-Za-z0-9]+", "_", title.strip()).strip("_").lower() or "plot"
-    output_path = graphs_dir / f"{safe_title}.png"
-    fig.savefig(output_path, dpi=300, bbox_inches="tight")
-    print(f"Saved plot to {output_path}")
+    png_output_path = graphs_dir / f"{safe_title}.png"
+    pgf_output_path = pgf_dir / f"{safe_title}.pgf"
+
+    fig.savefig(png_output_path, dpi=300, bbox_inches="tight")
+    print(f"Saved PNG plot to {png_output_path}")
+
+    # Detect a TeX engine if not supplied by the caller.
+    if tex_engine is None:
+        tex_engine = next(
+            (t for t in ("pdflatex", "lualatex", "xelatex") if shutil.which(t)), None
+        )
+
+    if tex_engine:
+        pgf_rc = {
+            "pgf.texsystem": tex_engine,
+            "text.usetex": True,
+            "pgf.preamble": r"\usepackage[utf8x]{inputenc}" + "\n" + r"\usepackage[T1]{fontenc}",
+        }
+        with mpl.rc_context(pgf_rc):
+            fig.savefig(pgf_output_path, backend="pgf", bbox_inches="tight")
+        print(f"Saved PGF plot to {pgf_output_path}")
+    else:
+        print("PGF export skipped: no TeX engine found (install MiKTeX or TeX Live)")
 
 
 def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_df=None):
