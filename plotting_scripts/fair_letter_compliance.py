@@ -1,19 +1,25 @@
 """Plot overall FAIR compliance by letter."""
 
 import re
+import shutil
 from pathlib import Path
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+from matplotlib.patches import Patch
 from plotting_scripts.FAIR_compliance import calculate_all_letter_compliance_rates
 from processing_scripts.pre_process import scleaned_pandas
 
 
-def save_plot(fig, title=None, graphs_dir=None):
-    """Save a matplotlib figure to a PNG file."""
+def save_plot(fig, title=None, graphs_dir=None, tex_engine=None):
+    """Save a matplotlib figure to PNG and optionally PGF in separate folders."""
     if graphs_dir is None:
         graphs_dir = Path("graphs")
     graphs_dir.mkdir(exist_ok=True)
-    
+    pgf_dir = graphs_dir / "pgf"
+    pgf_dir.mkdir(exist_ok=True)
+
     if title is None:
         if fig._suptitle is not None:
             title = fig._suptitle.get_text()
@@ -23,48 +29,181 @@ def save_plot(fig, title=None, graphs_dir=None):
             title = "plot"
 
     safe_title = re.sub(r"[^A-Za-z0-9]+", "_", title.strip()).strip("_").lower() or "plot"
-    output_path = graphs_dir / f"{safe_title}.png"
-    fig.savefig(output_path, dpi=300, bbox_inches="tight")
-    print(f"Saved plot to {output_path}")
+    png_output_path = graphs_dir / f"{safe_title}.png"
+    pgf_output_path = pgf_dir / f"{safe_title}.pgf"
+
+    fig.savefig(png_output_path, dpi=300, bbox_inches="tight")
+    print(f"Saved PNG plot to {png_output_path}")
+
+    # Detect a TeX engine if not supplied by the caller.
+    if tex_engine is None:
+        tex_engine = next(
+            (t for t in ("pdflatex", "lualatex", "xelatex") if shutil.which(t)), None
+        )
+
+    if tex_engine:
+        pgf_rc = {
+            "pgf.texsystem": tex_engine,
+            "text.usetex": True,
+            "pgf.preamble": r"\usepackage[utf8x]{inputenc}" + "\n" + r"\usepackage[T1]{fontenc}",
+        }
+        with mpl.rc_context(pgf_rc):
+            fig.savefig(pgf_output_path, backend="pgf", bbox_inches="tight")
+        print(f"Saved PGF plot to {pgf_output_path}")
+    else:
+        print("PGF export skipped: no TeX engine found (install MiKTeX or TeX Live)")
 
 
-def plot_fair_letter_compliance(df):
+def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_df=None):
     """
     Generate bar chart showing overall FAIR compliance rates by letter (F, A, I, R).
+    If multiple passes are supplied, display grouped bars side-by-side.
     
     Args:
-        df: DataFrame with FAIR evaluation results
+        first_pass_df: DataFrame with first-pass FAIR evaluation results
+        second_pass_df: Optional DataFrame with second-pass FAIR evaluation results
+        optimistic_df: Optional DataFrame with optimistic merged FAIR evaluation results
     """
-    # Plot full FAIR compliance by letter
-    compliance_by_letter = calculate_all_letter_compliance_rates(df)
-
-    letters = list(compliance_by_letter.keys())
-    rates = list(compliance_by_letter.values())
+    first_pass_compliance = calculate_all_letter_compliance_rates(first_pass_df)
+    letters = list(first_pass_compliance.keys())
+    letter_colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A"]
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    bars = ax.bar(
-        letters,
-        rates,
-        color=["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A"],
-        alpha=0.8,
-        edgecolor="black",
-    )
+
+    if second_pass_df is None and optimistic_df is None:
+        rates = list(first_pass_compliance.values())
+        bars = ax.bar(
+            letters,
+            rates,
+            color=letter_colors,
+            alpha=0.8,
+            edgecolor="black",
+        )
+
+        for bar in bars:
+            height = bar.get_height()
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                height,
+                f"{height:.1f}%",
+                ha="center",
+                va="bottom",
+                fontsize=10,
+            )
+    elif optimistic_df is None:
+        second_pass_compliance = calculate_all_letter_compliance_rates(second_pass_df)
+        first_rates = [first_pass_compliance[letter] for letter in letters]
+        second_rates = [second_pass_compliance[letter] for letter in letters]
+        x = np.arange(len(letters))
+        width = 0.36
+
+        first_bars = ax.bar(
+            x - width / 2,
+            first_rates,
+            width,
+            label="First pass",
+            color=letter_colors,
+            alpha=0.85,
+            edgecolor="black",
+        )
+        second_bars = ax.bar(
+            x + width / 2,
+            second_rates,
+            width,
+            label="Second pass",
+            color=letter_colors,
+            alpha=0.45,
+            hatch="//",
+            edgecolor="black",
+        )
+
+        ax.set_xticks(x)
+        ax.set_xticklabels(letters)
+        ax.legend(
+            handles=[
+                Patch(facecolor="white", edgecolor="black", label="First pass"),
+                Patch(facecolor="white", edgecolor="black", hatch="//", label="Second pass"),
+            ],
+            title="Pass",
+        )
+
+        for bar_group in (first_bars, second_bars):
+            for bar in bar_group:
+                height = bar.get_height()
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    height,
+                    f"{height:.1f}%",
+                    ha="center",
+                    va="bottom",
+                    fontsize=9,
+                )
+    else:
+        second_pass_compliance = calculate_all_letter_compliance_rates(second_pass_df)
+        optimistic_compliance = calculate_all_letter_compliance_rates(optimistic_df)
+        first_rates = [first_pass_compliance[letter] for letter in letters]
+        second_rates = [second_pass_compliance[letter] for letter in letters]
+        optimistic_rates = [optimistic_compliance[letter] for letter in letters]
+        x = np.arange(len(letters))
+        width = 0.26
+
+        first_bars = ax.bar(
+            x - width,
+            first_rates,
+            width,
+            label="First pass",
+            color=letter_colors,
+            alpha=0.85,
+            edgecolor="black",
+        )
+        second_bars = ax.bar(
+            x,
+            second_rates,
+            width,
+            label="Second pass",
+            color=letter_colors,
+            alpha=0.55,
+            hatch="//",
+            edgecolor="black",
+        )
+        optimistic_bars = ax.bar(
+            x + width,
+            optimistic_rates,
+            width,
+            label="Optimistic",
+            color=letter_colors,
+            alpha=0.35,
+            hatch="xx",
+            edgecolor="black",
+        )
+
+        ax.set_xticks(x)
+        ax.set_xticklabels(letters)
+        ax.legend(
+            handles=[
+                Patch(facecolor="white", edgecolor="black", label="First pass"),
+                Patch(facecolor="white", edgecolor="black", hatch="//", label="Second pass"),
+                Patch(facecolor="white", edgecolor="black", hatch="xx", label="Optimistic"),
+            ],
+            title="Pass",
+        )
+
+        for bar_group in (first_bars, second_bars, optimistic_bars):
+            for bar in bar_group:
+                height = bar.get_height()
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    height,
+                    f"{height:.1f}%",
+                    ha="center",
+                    va="bottom",
+                    fontsize=8,
+                )
+
     ax.set_ylabel("Compliance Rate (%)", fontsize=12)
     ax.set_xlabel("FAIR Letter", fontsize=12)
     ax.set_title("Overall FAIR Compliance by Letter", fontsize=14, fontweight="bold")
     ax.set_ylim(0, 100)
-
-    # Add value labels on bars
-    for bar in bars:
-        height = bar.get_height()
-        ax.text(
-            bar.get_x() + bar.get_width() / 2,
-            height,
-            f"{height:.1f}%",
-            ha="center",
-            va="bottom",
-            fontsize=10,
-        )
 
     plt.style.use("ggplot")
     plt.tight_layout()
