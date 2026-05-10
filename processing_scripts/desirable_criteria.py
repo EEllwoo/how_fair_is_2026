@@ -30,7 +30,7 @@ def get_desirable_criteria_stats_checkbox(df, criterion):
         df: The DataFrame with the paper data
         criterion: The criterion or column label
     """
-    counts = {}
+    counts = {"total": 0}
     for _, row in df.iterrows():
         results = row[criterion]
         if pd.isnull(results):
@@ -43,6 +43,7 @@ def get_desirable_criteria_stats_checkbox(df, criterion):
                 counts[r] = 1
             else:
                 counts[r] += 1
+            counts['total'] += 1
 
     print(f"Distribution for {criterion}")
     for key, value in counts.items():
