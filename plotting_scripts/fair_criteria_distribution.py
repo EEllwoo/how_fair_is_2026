@@ -4,9 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
-from matplotlib.colors import Normalize
+from matplotlib.colors import Normalize, PowerNorm
 from plotting_scripts.FAIR_compliance import is_criterion_compliant, get_value_safely
 from plotting_scripts.fair_letter_compliance import save_plot
+from plotting_scripts.palette import IBM_YELLOW, IBM_BLUE, ibm_colormap
 
 
 def plot_fair_criteria_distribution(df, F, A, I, R):
@@ -45,9 +46,10 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
     # DOI proportion in each group (0 when group is empty)
     doi_proportions = (doi_counts / group_counts.replace(0, np.nan)).fillna(0.0)
 
-    # Color bars by DOI proportion
-    norm = Normalize(vmin=0, vmax=1)
-    cmap = cm.get_cmap("YlGn")
+    # Color bars by DOI proportion.
+    # gamma < 1 expands the low end of the scale, making 0-20% more visually distinct.
+    norm = PowerNorm(gamma=0.3, vmin=0, vmax=1)
+    cmap = ibm_colormap("ibm_doi_proportion", [IBM_YELLOW, IBM_BLUE])
     bar_colors = cmap(norm(doi_proportions.values))
 
     fig, ax = plt.subplots(figsize=(14, 6))

@@ -10,6 +10,7 @@ import matplotlib as mpl
 from matplotlib.patches import Patch
 from plotting_scripts.FAIR_compliance import calculate_all_letter_compliance_rates
 from processing_scripts.pre_process import scleaned_pandas
+from plotting_scripts.palette import FAIR_LETTER_COLORS, get_pgf_rc
 
 
 def save_plot(fig, title=None, graphs_dir=None, tex_engine=None):
@@ -42,11 +43,7 @@ def save_plot(fig, title=None, graphs_dir=None, tex_engine=None):
         )
 
     if tex_engine:
-        pgf_rc = {
-            "pgf.texsystem": tex_engine,
-            "text.usetex": True,
-            "pgf.preamble": r"\usepackage[utf8x]{inputenc}" + "\n" + r"\usepackage[T1]{fontenc}",
-        }
+        pgf_rc = get_pgf_rc(tex_engine)
         with mpl.rc_context(pgf_rc):
             fig.savefig(pgf_output_path, backend="pgf", bbox_inches="tight")
         print(f"Saved PGF plot to {pgf_output_path}")
@@ -66,7 +63,7 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_d
     """
     first_pass_compliance = calculate_all_letter_compliance_rates(first_pass_df)
     letters = list(first_pass_compliance.keys())
-    letter_colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A"]
+    letter_colors = FAIR_LETTER_COLORS
 
     fig, ax = plt.subplots(figsize=(12, 6))
 

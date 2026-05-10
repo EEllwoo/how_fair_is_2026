@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 from pathlib import Path
+from plotting_scripts.palette import PASS_COLORS, get_pgf_rc
 
 
 def get_repo_stats(file):
@@ -90,7 +91,7 @@ def plot_graph(first_pass_stats, second_pass_stats):
         [position - bar_width / 2 for position in x_positions],
         first_counts,
         width=bar_width,
-        color='#4ECDC4',
+        color=PASS_COLORS[0],
         edgecolor='black',
         linewidth=0.5,
         label='First Pass'
@@ -99,7 +100,7 @@ def plot_graph(first_pass_stats, second_pass_stats):
         [position + bar_width / 2 for position in x_positions],
         second_counts,
         width=bar_width,
-        color='#FF6B6B',
+        color=PASS_COLORS[1],
         edgecolor='black',
         linewidth=0.5,
         label='Second Pass'
@@ -140,14 +141,11 @@ def plot_graph(first_pass_stats, second_pass_stats):
     if selected_tex is None:
         print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
     else:
-        original_tex = mpl.rcParams.get("pgf.texsystem", "xelatex")
         try:
-            mpl.rcParams["pgf.texsystem"] = selected_tex
-            fig.savefig(pgf_output_path, bbox_inches="tight")
+            with mpl.rc_context(get_pgf_rc(selected_tex)):
+                fig.savefig(pgf_output_path, backend="pgf", bbox_inches="tight")
         except Exception as exc:
             print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
-        finally:
-            mpl.rcParams["pgf.texsystem"] = original_tex
 
 def repo_stats_main():
     dir = "results/"
