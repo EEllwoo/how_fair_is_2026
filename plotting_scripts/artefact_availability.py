@@ -11,18 +11,26 @@ import numpy as np
 import os
 import shutil
 from pathlib import Path
+from plotting_scripts.palette import PASS_COLORS, get_pgf_rc
 
-def get_availability_stats(file):
+def _to_dataframe(data_source):
+    """Return a DataFrame from DataFrame input or CSV path."""
+    if isinstance(data_source, pd.DataFrame):
+        return data_source.copy()
+    return pd.read_csv(data_source)
+
+
+def get_availability_stats(data_source):
     """
     A function that takes the csv as input and counts the number of available and unavailable artefacts
 
     Args:
-        file (str): Path to CSV file.
+        data_source (str | DataFrame): Path to CSV file or in-memory DataFrame.
 
     Returns:
         dict: a dictionary of counts for artefact availability.
     """
-    df = pd.read_csv(file)
+    df = _to_dataframe(data_source)
 
     availability_count = 0
     unavailability_count = 0
@@ -44,7 +52,7 @@ def get_availability_stats(file):
         "No Artefact": no_artefact_count
     }
 
-def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Second Pass'):
+def plot_graph(stats1, stats2=None, filename='', title='', label1='First Pass', label2='Second Pass'):
     """
     Plot grouped bar charts for two availability statistics dictionaries and save it to a PNG.
 
@@ -65,6 +73,7 @@ def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Sec
         "lines.linewidth": 1.2
     })
     plt.style.use('ggplot')
+    stats2 = stats2 or {}
     categories = sorted(set(stats1) | set(stats2), key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0)), reverse=True)
     values1 = [stats1.get(category, 0) for category in categories]
     values2 = [stats2.get(category, 0) for category in categories]
@@ -73,8 +82,13 @@ def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Sec
     width = 0.35
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    bars1 = ax.bar(x - width / 2, values1, width, label=label1, color='#4ECDC4', edgecolor='black', linewidth=0.5)
-    bars2 = ax.bar(x + width / 2, values2, width, label=label2, color='#FF6B6B', edgecolor='black', linewidth=0.5)
+    if stats2:
+        bars1 = ax.bar(x - width / 2, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
+        bars2 = ax.bar(x + width / 2, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
+        all_bars = list(bars1) + list(bars2)
+    else:
+        bars1 = ax.bar(x, values1, width=0.6, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
+        all_bars = list(bars1)
 
     ax.set_xlabel('Availability')
     ax.xaxis.labelpad = 12
@@ -85,7 +99,7 @@ def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Sec
     ax.tick_params(axis='x', pad=6)
     ax.legend()
 
-    for bar in list(bars1) + list(bars2):
+    for bar in all_bars:
         height = bar.get_height()
         ax.annotate(
             f'{int(height)}',
@@ -111,19 +125,28 @@ def plot_graph(stats1, stats2, filename, title, label1='First Pass', label2='Sec
     if selected_tex is None:
         print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
     else:
-        original_tex = mpl.rcParams.get("pgf.texsystem", "xelatex")
         try:
-            mpl.rcParams["pgf.texsystem"] = selected_tex
-            fig.savefig(pgf_output_path)
+            with mpl.rc_context(get_pgf_rc(selected_tex)):
+                fig.savefig(pgf_output_path, backend="pgf")
         except Exception as exc:
             print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
-        finally:
-            mpl.rcParams["pgf.texsystem"] = original_tex
 
-def availability_main():
+def availability_main(data_source=None):
     """
     The main function for this script
     """
+    if data_source is not None:
+        optimistic_stats = get_availability_stats(data_source)
+        print(f"Optimistic: {optimistic_stats}")
+        plot_graph(
+            optimistic_stats,
+            None,
+            "availability_optimistic",
+            "Availability of Artefacts: Optimistic",
+            label1='Optimistic',
+        )
+        return
+
     dir = "results/"
     results = [
         os.path.join(dir, f)

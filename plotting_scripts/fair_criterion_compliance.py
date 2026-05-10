@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 from plotting_scripts.FAIR_compliance import calculate_criterion_compliance_rates
 from plotting_scripts.fair_letter_compliance import save_plot
+from plotting_scripts.palette import FAIR_LETTER_COLORS
 
 
 def plot_fair_criterion_compliance(df, F, A, I, R):
@@ -18,7 +19,7 @@ def plot_fair_criterion_compliance(df, F, A, I, R):
     axes = axes.flatten()
 
     fair_letters = {'F': F, 'A': A, 'I': I, 'R': R}
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A']
+    colors = FAIR_LETTER_COLORS
 
     for idx, (letter, criteria) in enumerate(fair_letters.items()):
         # Calculate compliance for each criterion using the new function

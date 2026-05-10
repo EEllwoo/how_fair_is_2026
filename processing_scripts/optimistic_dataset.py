@@ -138,6 +138,15 @@ def _pick_optimistic_mark(first_value, second_value):
     first_text = "" if pd.isna(first_value) else str(first_value).strip()
     second_text = "" if pd.isna(second_value) else str(second_value).strip()
 
+    # Prefer a real value over "Artefact Unavailable" — if one pass found the
+    # artifact, the optimistic result should reflect that.
+    first_unavailable = first_text == "Artefact Unavailable"
+    second_unavailable = second_text == "Artefact Unavailable"
+
+    if first_text and not first_unavailable:
+        return first_value
+    if second_text and not second_unavailable:
+        return second_value
     if first_text:
         return first_value
     if second_text:

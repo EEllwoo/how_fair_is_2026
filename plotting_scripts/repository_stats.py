@@ -10,9 +10,17 @@ import shutil
 import numpy as np
 import re
 from pathlib import Path
+from plotting_scripts.palette import PASS_COLORS, get_pgf_rc
 
 
-def get_repo_stats_available(file):
+def _to_dataframe(data_source):
+    """Return a DataFrame from DataFrame input or CSV path."""
+    if isinstance(data_source, pd.DataFrame):
+        return data_source.copy()
+    return pd.read_csv(data_source)
+
+
+def get_repo_stats_available(data_source):
     """
     A function that extracts artefact repositories from a single results file.
 
@@ -20,12 +28,12 @@ def get_repo_stats_available(file):
     expiration. We have split the counts into available and unavailable
 
     Args:
-        file (str): Path to CSV file.
+        data_source (str | DataFrame): Path to CSV file or in-memory DataFrame.
 
     Returns:
         dict: a dictionary of counts_available and counts_unavailable for each repository service.
     """
-    df = pd.read_csv(file)
+    df = _to_dataframe(data_source)
     counts_available = {
         "Zenodo Only": 0,
         "GitHub Only": 0,
@@ -100,7 +108,7 @@ def get_repo_stats_available(file):
             pass
     return counts_available, counts_unavailable
 
-def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass'):
+def plot_graph(stats1, stats2=None, title='', label1='First Pass', label2='Second Pass'):
     """
     Plot grouped bar charts for two repository statistics dictionaries and save the result.
 
@@ -114,13 +122,14 @@ def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass')
     """
     plt.rcParams.update({
         "figure.figsize": (3.5, 2.5),  # Set exact size
-        "font.size": 8,                # Match paper caption size
+        "font.size": 9,                # Match paper caption size
         "axes.labelsize": 9,
-        "legend.fontsize": 7,
+        "legend.fontsize": 9,
         "savefig.bbox": 'tight',       # Removes wasted white space
         "lines.linewidth": 1.2
     })
     plt.style.use('ggplot')
+    stats2 = stats2 or {}
     categories = sorted(
         set(stats1) | set(stats2),
         key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0)),
@@ -133,8 +142,13 @@ def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass')
     width = 0.35
 
     fig, ax = plt.subplots(figsize=(14, 7))
-    bars1 = ax.bar(x - width / 2, values1, width, label=label1, color='#4ECDC4', edgecolor='black', linewidth=0.5)
-    bars2 = ax.bar(x + width / 2, values2, width, label=label2, color='#FF6B6B', edgecolor='black', linewidth=0.5)
+    if stats2:
+        bars1 = ax.bar(x - width / 2, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
+        bars2 = ax.bar(x + width / 2, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
+        all_bars = list(bars1) + list(bars2)
+    else:
+        bars1 = ax.bar(x, values1, width=0.6, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
+        all_bars = list(bars1)
 
     ax.set_xlabel('Repository Service')
     ax.set_ylabel('Count')
@@ -143,7 +157,7 @@ def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass')
     ax.set_xticklabels(categories, rotation=45, ha='right')
     ax.legend()
 
-    for bar in list(bars1) + list(bars2):
+    for bar in all_bars:
         height = bar.get_height()
         ax.annotate(
             f'{int(height)}',
@@ -160,8 +174,8 @@ def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass')
     graphs_dir.mkdir(exist_ok=True)
     pgf_dir.mkdir(exist_ok=True)
 
-    png_output_path = graphs_dir / f"{filename}.png"
-    pgf_output_path = pgf_dir / f"{filename}.pgf"
+    png_output_path = graphs_dir / f"{title}.png"
+    pgf_output_path = pgf_dir / f"{title}.pgf"
 
     fig.savefig(png_output_path, dpi=300)
     tex_candidates = ("pdflatex", "lualatex", "xelatex")
@@ -169,19 +183,34 @@ def plot_graph(stats1, stats2, title, label1='First Pass', label2='Second Pass')
     if selected_tex is None:
         print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
     else:
-        original_tex = mpl.rcParams.get("pgf.texsystem", "xelatex")
         try:
-            mpl.rcParams["pgf.texsystem"] = selected_tex
-            fig.savefig(pgf_output_path)
+            with mpl.rc_context(get_pgf_rc(selected_tex)):
+                fig.savefig(pgf_output_path, backend="pgf")
         except Exception as exc:
             print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
-        finally:
-            mpl.rcParams["pgf.texsystem"] = original_tex
 
-def repo_stats_main():
+def repo_stats_main(data_source=None):
     """
     The main function for this script
     """
+    if data_source is not None:
+        available_stats, unavailable_stats = get_repo_stats_available(data_source)
+        print(f"Optimistic (available papers): {available_stats}")
+        print(f"Optimistic (unavailable papers): {unavailable_stats}")
+        plot_graph(
+            available_stats,
+            None,
+            "Repository Service Counts (available artefacts): Optimistic",
+            label1='Optimistic',
+        )
+        plot_graph(
+            unavailable_stats,
+            None,
+            "Repository Service Counts (unavailable artefacts): Optimistic",
+            label1='Optimistic',
+        )
+        return
+
     dir = "results/"
     results = [
         os.path.join(dir, f)

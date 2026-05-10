@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 from plotting_scripts.FAIR_compliance import calculate_full_fair_compliance, F
 from plotting_scripts.fair_letter_compliance import save_plot
+from plotting_scripts.palette import FULL_FAIR_CATEGORY_COLORS
 
 
 ARTIFACT_COLUMN = "Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?"
@@ -56,10 +57,10 @@ def plot_full_fair_compliance(df_first, df_second, df_optimistic):
     fig, ax = plt.subplots(figsize=(11, 6.5))
 
     category_data = [
-        ("Fully FAIR compliant", fully_compliant_counts, "#59A14F"),
-        ("Not fully compliant", not_compliant_counts, "#E15759"),
-        ("Artifact not available", artifact_unavailable_counts, "#F28E2B"),
-        ("No tool mentioned", no_tool_counts, "#9C755F"),
+        ("Fully FAIR compliant", fully_compliant_counts, FULL_FAIR_CATEGORY_COLORS[0]),
+        ("Not fully compliant", not_compliant_counts, FULL_FAIR_CATEGORY_COLORS[1]),
+        ("Artifact not available", artifact_unavailable_counts, FULL_FAIR_CATEGORY_COLORS[2]),
+        ("No tool mentioned", no_tool_counts, FULL_FAIR_CATEGORY_COLORS[3]),
     ]
 
     cumulative_bottom = [0, 0, 0]
