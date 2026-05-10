@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 from plotting_scripts.FAIR_compliance import calculate_criterion_compliance_rates
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import FAIR_LETTER_COLORS
+from plotting_scripts.palette import FAIR_LETTER_COLORS, get_pgf_rc
 
 
 def plot_fair_criterion_compliance(df, F, A, I, R):
@@ -46,7 +46,24 @@ def plot_fair_criterion_compliance(df, F, A, I, R):
         for i, (bar, value) in enumerate(zip(bars, criterion_compliance)):
             ax.text(value + 2, i, f'{value:.1f}%', va='center', fontsize=9)
 
-    fig.suptitle('FAIR Criterion Compliance by Letter', fontsize=14, fontweight='bold')
+    #fig.suptitle('FAIR Criterion Compliance by Letter', fontsize=14, fontweight='bold')
     plt.tight_layout()
-    save_plot(fig)
+    save_plot(fig, title="fair_criterion_compliance")
     plt.show()
+
+
+def main(df=None, F=None, A=None, I=None, R=None):
+    """
+    Generate individual FAIR criterion compliance plots.
+    
+    Args:
+        df: DataFrame with FAIR evaluation results (optional).
+        F, A, I, R: Lists of criteria for each FAIR letter (optional).
+    """
+    if df is not None and F is not None and A is not None and I is not None and R is not None:
+        print("Generating FAIR criterion compliance plot...")
+        plot_fair_criterion_compliance(df, F, A, I, R)
+
+
+if __name__ == '__main__':
+    main()

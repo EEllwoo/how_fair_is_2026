@@ -197,12 +197,29 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_d
                     fontsize=8,
                 )
 
-    ax.set_ylabel("Compliance Rate (%)", fontsize=12)
-    ax.set_xlabel("FAIR Letter", fontsize=12)
-    ax.set_title("Overall FAIR Compliance by Letter", fontsize=14, fontweight="bold")
+    ax.set_ylabel("Compliance Rate (%)", fontsize=12, fontweight='bold')
+    ax.set_xlabel("FAIR Letter", fontsize=12, fontweight='bold')
     ax.set_ylim(0, 100)
 
     plt.style.use("ggplot")
     plt.tight_layout()
-    save_plot(fig)
+    save_plot(fig, title="fair_letter_compliance")
     plt.show()
+
+
+def main(df_first_pass=None, df_second_pass=None, df_optimistic=None):
+    """
+    Generate FAIR letter compliance plots.
+    
+    Args:
+        df_first_pass: DataFrame with first-pass FAIR evaluation results (optional).
+        df_second_pass: DataFrame with second-pass FAIR evaluation results (optional).
+        df_optimistic: DataFrame with optimistic merged FAIR evaluation results (optional).
+    """
+    if df_first_pass is not None:
+        print("Generating FAIR letter compliance plot...")
+        plot_fair_letter_compliance(df_first_pass, df_second_pass, df_optimistic)
+
+
+if __name__ == '__main__':
+    main()

@@ -18,7 +18,8 @@ BADGE_CASCADE_COLORS = [IBM_YELLOW, IBM_ORANGE, IBM_MAGENTA, IBM_BLUE]
 FULL_FAIR_CATEGORY_COLORS = [IBM_BLUE, IBM_MAGENTA, IBM_ORANGE, IBM_PURPLE]
 
 PGF_FONT_RC = {
-    "font.size": 9,
+    "font.size": 12,
+    "font.weight": "bold",
     "axes.titlesize": 10,
     "figure.titlesize": 10,
     "legend.fontsize": 10,

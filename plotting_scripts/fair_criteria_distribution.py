@@ -7,7 +7,7 @@ from matplotlib import cm
 from matplotlib.colors import Normalize, PowerNorm
 from plotting_scripts.FAIR_compliance import is_criterion_compliant, get_value_safely
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import IBM_YELLOW, IBM_BLUE, ibm_colormap
+from plotting_scripts.palette import IBM_YELLOW, IBM_BLUE, ibm_colormap, get_pgf_rc
 
 
 def plot_fair_criteria_distribution(df, F, A, I, R):
@@ -61,10 +61,8 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
         edgecolor="black"
     )
 
-    ax.set_xlabel("Number of FAIR criteria met", fontsize=12)
-    ax.set_ylabel("Number of papers", fontsize=12)
-    ax.set_title("Distribution of FAIR Criteria Met per Paper (bar color = DOI proportion in group)", 
-                 fontsize=14, fontweight="bold")
+    ax.set_xlabel("Number of FAIR criteria met", fontsize=12, fontweight='bold')
+    ax.set_ylabel("Number of papers", fontsize=12, fontweight='bold')
     ax.set_xticks(range(1, n_criteria + 1))
 
     # Add paper-count labels on top of bars
@@ -77,7 +75,8 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
                 f"{int(height)}",
                 ha="center",
                 va="bottom",
-                fontsize=9
+                fontsize=10,
+                fontweight='bold'
             )
 
     # Add DOI proportion labels inside bars when possible
@@ -89,17 +88,35 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
                 f"DOI: {doi_prop:.0%}",
                 ha="center",
                 va="center",
-                fontsize=8,
-                color="black"
+                fontsize=9,
+                color="black",
+                fontweight='bold'
             )
 
     # Colorbar legend for DOI proportions
     sm = cm.ScalarMappable(norm=norm, cmap=cmap)
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax)
-    cbar.set_label("DOI proportion in this criteria-count group", fontsize=10)
+    cbar.set_label("DOI proportion in this criteria-count group", fontsize=10, fontweight='bold')
 
     plt.tight_layout()
-    save_plot(fig)
+    save_plot(fig, title="fair_criteria_distribution")
     plt.style.use("ggplot")
     plt.show()
+
+
+def main(df=None, F=None, A=None, I=None, R=None):
+    """
+    Generate FAIR criteria distribution plots.
+    
+    Args:
+        df: DataFrame with FAIR evaluation results (optional).
+        F, A, I, R: Lists of criteria for each FAIR letter (optional).
+    """
+    if df is not None and F is not None and A is not None and I is not None and R is not None:
+        print("Generating FAIR criteria distribution plot...")
+        plot_fair_criteria_distribution(df, F, A, I, R)
+
+
+if __name__ == '__main__':
+    main()
