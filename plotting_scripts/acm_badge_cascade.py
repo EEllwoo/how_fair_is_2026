@@ -61,10 +61,10 @@ def plot_acm_badge_cascade(data_source):
         alpha=0.9,
     )
 
-    ax.set_xlabel("Highest ACM Badge Awarded", fontsize=FONTSIZE_AXES)
-    ax.set_ylabel("Number of papers", fontsize=FONTSIZE_AXES)
-    ax.set_xticklabels(ax.get_xticklabels(), fontsize=FONTSIZE_LABELS, fontweight='bold')
-    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS, fontweight='bold')
+    ax.set_xlabel("Highest ACM Badge Awarded", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_ylabel("Number of papers", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
 
     for bar in bars:
         height = bar.get_height()
