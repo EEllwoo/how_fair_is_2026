@@ -7,7 +7,7 @@ from matplotlib import cm
 from matplotlib.colors import Normalize, PowerNorm
 from plotting_scripts.FAIR_compliance import is_criterion_compliant, get_value_safely
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import IBM_YELLOW, IBM_BLUE, ibm_colormap, get_pgf_rc
+from plotting_scripts.palette import IBM_YELLOW, IBM_BLUE, ibm_colormap, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_TEXT
 
 
 def plot_fair_criteria_distribution(df, F, A, I, R):
@@ -52,7 +52,7 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
     cmap = ibm_colormap("ibm_doi_proportion", [IBM_YELLOW, IBM_BLUE])
     bar_colors = cmap(norm(doi_proportions.values))
 
-    fig, ax = plt.subplots(figsize=(14, 6))
+    fig, ax = plt.subplots(figsize=(16, 6))
     bars = ax.bar(
         group_counts.index,
         group_counts.values,
@@ -61,9 +61,12 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
         edgecolor="black"
     )
 
-    ax.set_xlabel("Number of FAIR criteria met", fontsize=12, fontweight='bold')
-    ax.set_ylabel("Number of papers", fontsize=12, fontweight='bold')
+    ax.set_xlabel("Number of FAIR criteria met", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_ylabel("Number of papers", fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.set_xticks(range(1, n_criteria + 1))
+
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
 
     # Add paper-count labels on top of bars
     for bar in bars:
@@ -75,8 +78,7 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
                 f"{int(height)}",
                 ha="center",
                 va="bottom",
-                fontsize=10,
-                fontweight='bold'
+                fontsize=FONTSIZE_TEXT,
             )
 
     # Add DOI proportion labels inside bars when possible
@@ -88,16 +90,16 @@ def plot_fair_criteria_distribution(df, F, A, I, R):
                 f"DOI: {doi_prop:.0%}",
                 ha="center",
                 va="center",
-                fontsize=9,
+                fontsize=FONTSIZE_TEXT-4,
                 color="black",
-                fontweight='bold'
             )
 
     # Colorbar legend for DOI proportions
     sm = cm.ScalarMappable(norm=norm, cmap=cmap)
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax)
-    cbar.set_label("DOI proportion in this criteria-count group", fontsize=10, fontweight='bold')
+    cbar.set_label("DOI proportion in this criteria-count group", fontsize=FONTSIZE_LABELS)
+
 
     plt.tight_layout()
     save_plot(fig, title="fair_criteria_distribution")

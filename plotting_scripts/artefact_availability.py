@@ -11,7 +11,7 @@ import numpy as np
 import os
 import shutil
 from pathlib import Path
-from plotting_scripts.palette import PASS_COLORS, get_pgf_rc
+from plotting_scripts.palette import PASS_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_LEGEND, FONTSIZE_TEXT
 from plotting_scripts.fair_letter_compliance import save_plot
 
 def _to_dataframe(data_source):
@@ -81,7 +81,7 @@ def plot_graph(stats1, stats2=None, stats3=None, title='', label1='First Pass', 
     if stats2 and stats3:
         bars1 = ax.bar(x - width, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
         bars2 = ax.bar(x, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
-        bars3 = ax.bar(x + width, values3, width, label=label3, color='#4472C4', edgecolor='black', linewidth=0.5)
+        bars3 = ax.bar(x + width, values3, width, label=label3, color=PASS_COLORS[2], edgecolor='black', linewidth=0.5)
         all_bars = list(bars1) + list(bars2) + list(bars3)
     elif stats2:
         bars1 = ax.bar(x - width / 2, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
@@ -91,13 +91,14 @@ def plot_graph(stats1, stats2=None, stats3=None, title='', label1='First Pass', 
         bars1 = ax.bar(x, values1, width=0.6, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
         all_bars = list(bars1)
 
-    ax.set_xlabel('Availability', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Availability', fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.xaxis.labelpad = 12
-    ax.set_ylabel('Count', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Count', fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.set_xticks(x)
-    ax.set_xticklabels(categories, fontsize=11, fontweight='bold')
+    ax.set_xticklabels(categories, fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
     ax.tick_params(axis='x', pad=6)
-    ax.legend(fontsize=11)
+    ax.legend(fontsize=FONTSIZE_LEGEND)
 
     for bar in all_bars:
         height = bar.get_height()
@@ -108,7 +109,8 @@ def plot_graph(stats1, stats2=None, stats3=None, title='', label1='First Pass', 
             textcoords='offset points',
             ha='center',
             va='bottom',
-            fontweight='bold'
+            fontweight='bold',
+            fontsize=FONTSIZE_TEXT
         )
 
     fig.tight_layout()

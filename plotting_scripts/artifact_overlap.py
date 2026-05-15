@@ -8,7 +8,7 @@ from matplotlib.colors import Normalize
 from processing_scripts.pre_process import scleaned_pandas
 from processing_scripts.optimistic_dataset import _keyed_pass, COMPLIANT_VALUES, DISPLAY_NAME_COLUMN
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import IBM_BLUE, IBM_PURPLE, ibm_colormap, get_pgf_rc
+from plotting_scripts.palette import IBM_BLUE, IBM_PURPLE, ibm_colormap, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_LEGEND
 
 
 def _fair_criteria_count(row, fair_criteria):
@@ -202,7 +202,7 @@ def plot_artifact_overlap(
     )
 
     table.auto_set_font_size(False)
-    table.set_fontsize(11)
+    table.set_fontsize(FONTSIZE_LABELS)
 
     for (row_index, col_index), cell in table.get_celld().items():
         cell.set_linewidth(0)
@@ -210,10 +210,8 @@ def plot_artifact_overlap(
             value = overlap_matrix[row_index - 1, col_index]
             text_color = "white" if value > overlap_matrix.max() * 0.5 else "black"
             cell.get_text().set_color(text_color)
-            cell.get_text().set_fontweight("bold")
         else:
             cell.set_facecolor("white")
-            cell.get_text().set_fontweight("bold")
             cell.get_text().set_color("black")
 
     #ax.set_title(f"Artifact Overlap Between {first_label} and {second_label}", fontsize=14, fontweight="bold", pad=5)

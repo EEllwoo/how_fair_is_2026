@@ -16,7 +16,6 @@ DEFAULT_LOCATION_COLUMNS = [
 ]
 DEFAULT_DROP_COLUMNS = [
     "A1 follow-up: Which of these protocols are available to download the software?",
-    "R2 follow-up: Is there a file / project manager tool to help with the installation of other software / libraries?",
     "Is the software itself documented well?",
     "Which of the following code readability standards have been implemented?",
     "How long did this form take to complete?",

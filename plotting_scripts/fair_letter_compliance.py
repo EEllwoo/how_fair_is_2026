@@ -10,7 +10,7 @@ import matplotlib as mpl
 from matplotlib.patches import Patch
 from plotting_scripts.FAIR_compliance import calculate_all_letter_compliance_rates
 from processing_scripts.pre_process import scleaned_pandas
-from plotting_scripts.palette import FAIR_LETTER_COLORS, get_pgf_rc
+from plotting_scripts.palette import FAIR_LETTER_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_TEXT
 
 
 def save_plot(fig, title=None, graphs_dir=None, tex_engine=None):
@@ -85,7 +85,7 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_d
                 f"{height:.1f}%",
                 ha="center",
                 va="bottom",
-                fontsize=10,
+                fontsize=FONTSIZE_LABELS,
             )
     elif optimistic_df is None:
         second_pass_compliance = calculate_all_letter_compliance_rates(second_pass_df)
@@ -133,7 +133,7 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_d
                     f"{height:.1f}%",
                     ha="center",
                     va="bottom",
-                    fontsize=9,
+                    fontsize=FONTSIZE_TEXT,
                 )
     else:
         second_pass_compliance = calculate_all_letter_compliance_rates(second_pass_df)
@@ -194,11 +194,13 @@ def plot_fair_letter_compliance(first_pass_df, second_pass_df=None, optimistic_d
                     f"{height:.1f}%",
                     ha="center",
                     va="bottom",
-                    fontsize=8,
+                    fontsize=FONTSIZE_TEXT,
                 )
 
-    ax.set_ylabel("Compliance Rate (%)", fontsize=12, fontweight='bold')
-    ax.set_xlabel("FAIR Letter", fontsize=12, fontweight='bold')
+    ax.set_ylabel("Compliance Rate (%)", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_xlabel("FAIR Letter", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
     ax.set_ylim(0, 100)
 
     plt.style.use("ggplot")

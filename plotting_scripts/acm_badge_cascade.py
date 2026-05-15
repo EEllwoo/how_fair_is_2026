@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 from processing_scripts.pre_process import scleaned_pandas
 from plotting_scripts.FAIR_compliance import A, F, I, R, is_criterion_compliant
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import BADGE_CASCADE_COLORS, get_pgf_rc
+from plotting_scripts.palette import BADGE_CASCADE_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_LEGEND, FONTSIZE_TEXT
 
 
 ACM_BADGE_COLUMN = "Which (if any) ACM Badges does the report have?"
@@ -52,7 +52,7 @@ def plot_acm_badge_cascade(data_source):
     badge_levels = wide_df[ACM_BADGE_COLUMN].apply(classify_highest_badge)
     cascade_counts = [int((badge_levels == badge_level).sum()) for badge_level in BADGE_LEVELS]
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(16, 6))
     bars = ax.bar(
         BADGE_LEVELS,
         cascade_counts,
@@ -61,8 +61,10 @@ def plot_acm_badge_cascade(data_source):
         alpha=0.9,
     )
 
-    ax.set_xlabel("Highest ACM Badge Awarded", fontsize=12, fontweight='bold')
-    ax.set_ylabel("Number of papers", fontsize=12, fontweight='bold')
+    ax.set_xlabel("Highest ACM Badge Awarded", fontsize=FONTSIZE_AXES)
+    ax.set_ylabel("Number of papers", fontsize=FONTSIZE_AXES)
+    ax.set_xticklabels(ax.get_xticklabels(), fontsize=FONTSIZE_LABELS, fontweight='bold')
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS, fontweight='bold')
 
     for bar in bars:
         height = bar.get_height()
@@ -72,7 +74,7 @@ def plot_acm_badge_cascade(data_source):
             f"{int(height)}",
             ha="center",
             va="bottom",
-            fontsize=10,
+            fontsize=FONTSIZE_TEXT,
             fontweight='bold'
         )
 
@@ -155,7 +157,7 @@ def plot_fair_criteria_whisker_by_badge(data_source, fair_criteria=None, no_badg
         for xpos, mean_value in zip(valid_positions, valid_means):
             ax.text(
                 xpos,
-                mean_value,
+                mean_value-0.7,
                 f"{mean_value:.1f}",
                 ha="center",
                 va="bottom",
@@ -163,11 +165,11 @@ def plot_fair_criteria_whisker_by_badge(data_source, fair_criteria=None, no_badg
                 fontweight='bold'
             )
 
-    ax.set_xlabel("Highest ACM Badge Awarded", fontsize=14, fontweight='bold')
-    ax.set_ylabel("FAIR criteria met per paper", fontsize=14, fontweight='bold')
+    ax.set_xlabel("Highest ACM Badge Awarded", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_ylabel("FAIR criteria met per paper", fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.set_xticks(positions)
-    ax.set_xticklabels(BADGE_LEVELS, ha='center', fontsize=12, fontweight='bold')
-    ax.tick_params(axis='y', labelsize=12)
+    ax.set_xticklabels(BADGE_LEVELS, ha='center', fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
     
     y_max = max((np.max(vals) for vals in grouped_counts if len(vals) > 0), default=1)
     ax.set_ylim(0, y_max * 1.15)
@@ -176,7 +178,7 @@ def plot_fair_criteria_whisker_by_badge(data_source, fair_criteria=None, no_badg
         Line2D([0], [0], color="black", linewidth=1.5, label="Median"),
         Line2D([0], [0], marker="o", color="black", linestyle="None", markersize=6, label="Mean"),
     ]
-    ax.legend(handles=legend_handles, loc="upper left", fontsize=12, frameon=True)
+    ax.legend(handles=legend_handles, loc="upper left", fontsize=FONTSIZE_LEGEND, frameon=True)
 
     fig.tight_layout()
     save_plot(fig, title="fair_criteria_by_badge")

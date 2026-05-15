@@ -1,9 +1,10 @@
 """Plot individual letter compliance analysis by criterion."""
 
 import matplotlib.pyplot as plt
+import re
 from plotting_scripts.FAIR_compliance import calculate_criterion_compliance_rates
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import FAIR_LETTER_COLORS, get_pgf_rc
+from plotting_scripts.palette import FAIR_LETTER_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS
 
 
 def plot_fair_criterion_compliance(df, F, A, I, R):
@@ -29,22 +30,24 @@ def plot_fair_criterion_compliance(df, F, A, I, R):
         for criterion in criteria:
             if criterion in df.columns:
                 # Shorten label for readability
-                short_label = criterion[:50] + '...' if len(criterion) > 50 else criterion
+                short_label = re.search(r"[FAIR](\d\.)+", criterion).group(0)
                 criterion_labels.append(short_label)
+
+        criterion_labels = criterion_labels[::-1]
 
         # Plot
         ax = axes[idx]
         bars = ax.barh(range(len(criterion_compliance)), criterion_compliance,
                        color=colors[idx], alpha=0.7, edgecolor='black')
         ax.set_yticks(range(len(criterion_labels)))
-        ax.set_yticklabels(criterion_labels, fontsize=9)
-        ax.set_xlabel('Compliance Rate (%)', fontsize=10)
-        ax.set_title(f'Letter {letter} - Compliance by Criterion', fontsize=12, fontweight='bold')
+        ax.set_yticklabels(criterion_labels, fontsize=FONTSIZE_LABELS-4)
+        ax.set_xlabel('Compliance Rate (%)', fontsize=FONTSIZE_AXES, fontweight='bold')
+        ax.set_title(f'Letter {letter} - Compliance by Criterion', fontsize=FONTSIZE_AXES, fontweight='bold')
         ax.set_xlim(0, 100)
 
         # Add value labels
         for i, (bar, value) in enumerate(zip(bars, criterion_compliance)):
-            ax.text(value + 2, i, f'{value:.1f}%', va='center', fontsize=9)
+            ax.text(value + 2, i, f'{value:.1f}%', va='center', fontsize=FONTSIZE_LABELS)
 
     #fig.suptitle('FAIR Criterion Compliance by Letter', fontsize=14, fontweight='bold')
     plt.tight_layout()
