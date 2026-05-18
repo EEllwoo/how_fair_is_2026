@@ -64,10 +64,9 @@ This software was worked on over several months in early 2026.
 `optimistic_dataset.py` - This file produces an "optimistic" dataset: if two reviewers have disagreed on a criterion between passes, take the result that says 'Yes'.
 
 
-
 **Analysis Notebooks:**
 These notebooks were made to make running our results as easy as a click of a button.
 
-data_reports.ipynb - Fixes any issues with our results CSVs
+`data_reports.ipynb` - Fixes any issues with our results CSVs
 
-plot_gen.ipynb - Plots our results data
+`plot_gen.ipynb` - Plots our results data
