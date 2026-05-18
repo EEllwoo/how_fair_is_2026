@@ -1,6 +1,6 @@
 # Software artefacts for our FAIR evaluation literature review
 
-Tools and scripts used in the process of gathering results for our paper
+Tools and scripts used in the process of gathering results for our paper "How FAIR is Research Software?"
 
 ## Authors
 
@@ -32,28 +32,42 @@ This software was worked on over several months in early 2026.
 
 **Plotting Scripts:**
 
-FAIR_compliance.py - This file finds how many of the reviewed papers are fully FAIR compliant, and prints a summary of the results
+`FAIR_compliance.py` - This file finds how many of the reviewed papers are fully FAIR compliant, and prints a summary of the results.
 
-artefact_availability.py - This file collects and plots how many of the reviewed papers we found had artefacts we could find. Prints results and plots some graphs, which can be found in the graphs folder.
+`acm_badge_cascade.py` - This file plots the number of papers achieving each step of ACM badges as well as a violin plot of no. of FAIR criteria per ACM badge achievement.
 
-repository_stats.py - This file collects and plots some information on our results, specifically which repositories are used
+`artifact_overlap.py` - This file plots the differences in found artefacts between the first and second pass.
+
+`fair_criteria_distribution.py` - This file plots a graph showing the number of papers achieving a certain number of FAIR criteria, with shading representing what % of those papers had DOIs
+
+`fair_criterion_compliance.py` - This file plots FAIR compliance for each letter, showing what % of papers achieved the criteria per letter.
+
+`fair_letter_compliance.py` - This file plots how many papers achieved each *full* letter of FAIR.
+
+`artefact_availability.py` - This file collects and plots how many of the reviewed papers we found had artefacts we could find. Prints results and plots some graphs, which can be found in the graphs folder.
+
+`repository_stats.py` - This file collects and plots some information on which repositories are used.
 
 
 **Processing Scripts:**
 
-compare_passes.py - A script to compare two or more passes of our FAIR evaluation over a set of papers, and find disagreements between the different passes. To use: download compare_passes.py, put all evaluation results in the form of seperate CSV files into the 'results' folder, and run compare.py. The results of the comparison will be output to 'comparison.csv', with the disagreements in the form of [evaluation 1 answer] | [evaluation 2 answer] | ... | [evaluation n answer]
+`compare_passes.py` - A script to compare two or more passes of our FAIR evaluation over a set of papers, and find disagreements between the different passes. To use: download compare_passes.py, put all evaluation results in the form of seperate CSV files into the 'results' folder, and run compare.py. The results of the comparison will be output to 'comparison.csv', with the disagreements in the form of [evaluation 1 answer] | [evaluation 2 answer] | ... | [evaluation n answer]
 
-find_missing_information.py - This file compares a csv with a reference sheet of all the paper titles with their artefact DOIs to find any papers missing from the CSV.
+`find_missing_information.py` - This file compares a csv with a reference sheet of all the paper titles with their artefact DOIs to find any papers missing from the CSV.
 
-fix_missing_information.py - This file finds and fixes any errors involving artefact DOIs in our results.
+`fix_missing_information.py` - This file finds and fixes any errors involving artefact DOIs in our results.
 
-pre_process.py - This file converts a CSV file into a dataframe and does some basic pre-processing.
+`pre_process.py` - This file converts a CSV file into a dataframe and does some basic pre-processing.
 
-scraper.py - This file collects all the paper titles and their DOIs from the IEEE website. **I don't think we should keep this in the final repository, it doesnt seem FAIR compliant**
+`scraper.py` - This file collects all the paper titles and their DOIs from the IEEE website.
+
+`optimistic_dataset.py` - This file produces an "optimistic" dataset: if two reviewers have disagreed on a criterion between passes, take the result that says 'Yes'.
+
 
 
 **Analysis Notebooks:**
+These notebooks were made to make running our results as easy as a click of a button.
 
-data_reports.ipynb - Fixes any issues with our results CSVs (**i think?**)
+data_reports.ipynb - Fixes any issues with our results CSVs
 
 plot_gen.ipynb - Plots our results data
