@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 from plotting_scripts.FAIR_compliance import calculate_full_fair_compliance, F
 from plotting_scripts.fair_letter_compliance import save_plot
-from plotting_scripts.palette import FULL_FAIR_CATEGORY_COLORS
+from plotting_scripts.palette import FULL_FAIR_CATEGORY_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_TEXT, FONTSIZE_LEGEND, FONTSIZE_LABELS
 
 
 ARTIFACT_COLUMN = "Are any software artefacts/tools/scripts mentioned in and used in the process of gathering results for the report?"
@@ -84,7 +84,7 @@ def plot_full_fair_compliance(df_first, df_second, df_optimistic):
                     str(category_values[idx]),
                     ha="center",
                     va="center",
-                    fontsize=9,
+                    fontsize=FONTSIZE_TEXT,
                     color="white",
                     fontweight="bold",
                 )
@@ -100,18 +100,37 @@ def plot_full_fair_compliance(df_first, df_second, df_optimistic):
             f"Total: {total}",
             ha="center",
             va="bottom",
-            fontsize=9,
+            fontsize=FONTSIZE_TEXT,
             fontweight="bold",
         )
 
     ax.set_ylim(0, max(totals) * 1.12 if totals else 1)
-    ax.set_ylabel("Paper count", fontsize=11)
-    ax.set_xlabel("Dataset", fontsize=11)
-    ax.set_title("Full FAIR Outcome Breakdown Across Datasets", fontsize=14, fontweight="bold")
-    ax.legend(loc="upper right")
+    ax.set_ylabel("Paper count", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_xlabel("Dataset", fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_xticklabels(labels, fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
+    ax.legend(loc="upper left", bbox_to_anchor=(1, 1), fontsize=FONTSIZE_LEGEND)
     ax.grid(axis="y", alpha=0.25)
 
     plt.tight_layout()
-    save_plot(fig)
+    save_plot(fig, title="full_fair_compliance")
     plt.style.use("ggplot")
     plt.show()
+
+
+def main(df_first_pass=None, df_second_pass=None, df_optimistic=None):
+    """
+    Generate full FAIR compliance plots.
+    
+    Args:
+        df_first_pass: DataFrame with first-pass FAIR evaluation results (optional).
+        df_second_pass: DataFrame with second-pass FAIR evaluation results (optional).
+        df_optimistic: DataFrame with optimistic merged FAIR evaluation results (optional).
+    """
+    if df_first_pass is not None and df_second_pass is not None and df_optimistic is not None:
+        print("Generating full FAIR compliance plot...")
+        plot_full_fair_compliance(df_first_pass, df_second_pass, df_optimistic)
+
+
+if __name__ == '__main__':
+    main()

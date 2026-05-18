@@ -10,7 +10,8 @@ import shutil
 import numpy as np
 import re
 from pathlib import Path
-from plotting_scripts.palette import PASS_COLORS, get_pgf_rc
+from plotting_scripts.palette import PASS_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_LEGEND
+from plotting_scripts.fair_letter_compliance import save_plot
 
 
 def _to_dataframe(data_source):
@@ -108,41 +109,41 @@ def get_repo_stats_available(data_source):
             pass
     return counts_available, counts_unavailable
 
-def plot_graph(stats1, stats2=None, title='', label1='First Pass', label2='Second Pass'):
+def plot_graph(stats1, stats2=None, stats3=None, title='', label1='First Pass', label2='Second Pass', label3='Optimistic'):
     """
-    Plot grouped bar charts for two repository statistics dictionaries and save the result.
+    Plot grouped bar charts for repository statistics dictionaries and save the result.
 
     Args:
         stats1 (dict): Counts for the first pass.
-        stats2 (dict): Counts for the second pass.
-        filename (str): Filename for the graph output.
-        title (str): Title for the chart.
+        stats2 (dict): Counts for the second pass (optional).
+        stats3 (dict): Counts for the optimistic dataset (optional).
+        title (str): Title for the chart (used for filename, not displayed).
         label1 (str): Label for the first set of bars.
         label2 (str): Label for the second set of bars.
+        label3 (str): Label for the third set of bars.
     """
-    plt.rcParams.update({
-        "figure.figsize": (3.5, 2.5),  # Set exact size
-        "font.size": 9,                # Match paper caption size
-        "axes.labelsize": 9,
-        "legend.fontsize": 9,
-        "savefig.bbox": 'tight',       # Removes wasted white space
-        "lines.linewidth": 1.2
-    })
     plt.style.use('ggplot')
     stats2 = stats2 or {}
+    stats3 = stats3 or {}
     categories = sorted(
-        set(stats1) | set(stats2),
-        key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0)),
+        set(stats1) | set(stats2) | set(stats3),
+        key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0), stats3.get(item, 0)),
         reverse=True,
     )
     values1 = [stats1.get(category, 0) for category in categories]
     values2 = [stats2.get(category, 0) for category in categories]
+    values3 = [stats3.get(category, 0) for category in categories]
 
     x = np.arange(len(categories))
-    width = 0.35
+    width = 0.25 if (stats2 and stats3) else (0.35 if stats2 else 0.6)
 
-    fig, ax = plt.subplots(figsize=(14, 7))
-    if stats2:
+    fig, ax = plt.subplots(figsize=(16, 7))
+    if stats2 and stats3:
+        bars1 = ax.bar(x - width, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
+        bars2 = ax.bar(x, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
+        bars3 = ax.bar(x + width, values3, width, label=label3, color=PASS_COLORS[2], edgecolor='black', linewidth=0.5)
+        all_bars = list(bars1) + list(bars2) + list(bars3)
+    elif stats2:
         bars1 = ax.bar(x - width / 2, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
         bars2 = ax.bar(x + width / 2, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
         all_bars = list(bars1) + list(bars2)
@@ -150,12 +151,12 @@ def plot_graph(stats1, stats2=None, title='', label1='First Pass', label2='Secon
         bars1 = ax.bar(x, values1, width=0.6, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
         all_bars = list(bars1)
 
-    ax.set_xlabel('Repository Service')
-    ax.set_ylabel('Count')
-    ax.set_title(title)
+    ax.set_xlabel('Repository Service', fontsize=FONTSIZE_AXES, fontweight='bold')
+    ax.set_ylabel('Count', fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.set_xticks(x)
-    ax.set_xticklabels(categories, rotation=45, ha='right')
-    ax.legend()
+    ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
+    ax.legend(fontsize=FONTSIZE_LEGEND)
 
     for bar in all_bars:
         height = bar.get_height()
@@ -165,52 +166,92 @@ def plot_graph(stats1, stats2=None, title='', label1='First Pass', label2='Secon
             xytext=(0, 3),
             textcoords='offset points',
             ha='center',
-            va='bottom'
+            va='bottom',
+            fontweight='bold'
         )
 
     fig.tight_layout()
-    graphs_dir = Path("graphs")
-    pgf_dir = graphs_dir / "pgf"
-    graphs_dir.mkdir(exist_ok=True)
-    pgf_dir.mkdir(exist_ok=True)
+    save_plot(fig, title=title)
 
-    png_output_path = graphs_dir / f"{title}.png"
-    pgf_output_path = pgf_dir / f"{title}.pgf"
-
-    fig.savefig(png_output_path, dpi=300)
-    tex_candidates = ("pdflatex", "lualatex", "xelatex")
-    selected_tex = next((tex for tex in tex_candidates if shutil.which(tex)), None)
-    if selected_tex is None:
-        print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
-    else:
-        try:
-            with mpl.rc_context(get_pgf_rc(selected_tex)):
-                fig.savefig(pgf_output_path, backend="pgf")
-        except Exception as exc:
-            print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
-
-def repo_stats_main(data_source=None):
+def repo_stats_main(first_pass_df=None, second_pass_df=None, optimistic_df=None):
     """
-    The main function for this script
+    Generate repository statistics plots for FAIR evaluation results.
+    
+    Args:
+        first_pass_df: DataFrame with first-pass FAIR evaluation results (optional).
+                       If None, loads from results/ directory.
+        second_pass_df: DataFrame with second-pass FAIR evaluation results (optional).
+        optimistic_df: DataFrame with optimistic merged FAIR evaluation results (optional).
     """
-    if data_source is not None:
-        available_stats, unavailable_stats = get_repo_stats_available(data_source)
-        print(f"Optimistic (available papers): {available_stats}")
-        print(f"Optimistic (unavailable papers): {unavailable_stats}")
-        plot_graph(
-            available_stats,
-            None,
-            "Repository Service Counts (available artefacts): Optimistic",
-            label1='Optimistic',
-        )
-        plot_graph(
-            unavailable_stats,
-            None,
-            "Repository Service Counts (unavailable artefacts): Optimistic",
-            label1='Optimistic',
-        )
+    if first_pass_df is not None:
+        # Generate plots from provided dataframes
+        first_pass_available, first_pass_unavailable = get_repo_stats_available(first_pass_df)
+        print(f"First pass (available papers): {first_pass_available}")
+        print(f"First pass (unavailable papers): {first_pass_unavailable}")
+        
+        if second_pass_df is not None:
+            second_pass_available, second_pass_unavailable = get_repo_stats_available(second_pass_df)
+            print(f"Second pass (available papers): {second_pass_available}")
+            print(f"Second pass (unavailable papers): {second_pass_unavailable}")
+            
+            if optimistic_df is not None:
+                optimistic_available, optimistic_unavailable = get_repo_stats_available(optimistic_df)
+                print(f"Optimistic (available papers): {optimistic_available}")
+                print(f"Optimistic (unavailable papers): {optimistic_unavailable}")
+                
+                plot_graph(
+                    first_pass_available,
+                    second_pass_available,
+                    optimistic_available,
+                    "repository_available_comparison",
+                    label1='First Pass',
+                    label2='Second Pass',
+                    label3='Optimistic',
+                )
+                plot_graph(
+                    first_pass_unavailable,
+                    second_pass_unavailable,
+                    optimistic_unavailable,
+                    "repository_unavailable_comparison",
+                    label1='First Pass',
+                    label2='Second Pass',
+                    label3='Optimistic',
+                )
+            else:
+                plot_graph(
+                    first_pass_available,
+                    second_pass_available,
+                    None,
+                    "repository_available_comparison",
+                    label1='First Pass',
+                    label2='Second Pass',
+                )
+                plot_graph(
+                    first_pass_unavailable,
+                    second_pass_unavailable,
+                    None,
+                    "repository_unavailable_comparison",
+                    label1='First Pass',
+                    label2='Second Pass',
+                )
+        else:
+            plot_graph(
+                first_pass_available,
+                None,
+                None,
+                "repository_available_first_pass",
+                label1='First Pass',
+            )
+            plot_graph(
+                first_pass_unavailable,
+                None,
+                None,
+                "repository_unavailable_first_pass",
+                label1='First Pass',
+            )
         return
 
+    # Original behavior: load from results directory
     dir = "results/"
     results = [
         os.path.join(dir, f)
@@ -231,14 +272,14 @@ def repo_stats_main(data_source=None):
     plot_graph(
         first_pass_available,
         second_pass_available,
-        "Repository Service Counts (available artefacts): First Pass vs Second Pass",
+        "repository_available_comparison",
         label1='First Pass',
         label2='Second Pass',
     )
     plot_graph(
         first_pass_unavailable,
         second_pass_unavailable,
-        "Repository Service Counts (unavailable artefacts): First Pass vs Second Pass",
+        "repository_unavailable_comparison",
         label1='First Pass',
         label2='Second Pass',
     )

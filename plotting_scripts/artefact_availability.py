@@ -11,7 +11,8 @@ import numpy as np
 import os
 import shutil
 from pathlib import Path
-from plotting_scripts.palette import PASS_COLORS, get_pgf_rc
+from plotting_scripts.palette import PASS_COLORS, get_pgf_rc, FONTSIZE_AXES, FONTSIZE_LABELS, FONTSIZE_LEGEND, FONTSIZE_TEXT
+from plotting_scripts.fair_letter_compliance import save_plot
 
 def _to_dataframe(data_source):
     """Return a DataFrame from DataFrame input or CSV path."""
@@ -52,37 +53,37 @@ def get_availability_stats(data_source):
         "No Artefact": no_artefact_count
     }
 
-def plot_graph(stats1, stats2=None, filename='', title='', label1='First Pass', label2='Second Pass'):
+def plot_graph(stats1, stats2=None, stats3=None, title='', label1='First Pass', label2='Second Pass', label3='Optimistic'):
     """
-    Plot grouped bar charts for two availability statistics dictionaries and save it to a PNG.
+    Plot grouped bar charts for availability statistics dictionaries and save it to a PNG.
 
     Args:
         stats1 (dict): Counts for the first pass.
-        stats2 (dict): Counts for the second pass.
-        filename (str): Output filename.
-        title (str): Chart title.
+        stats2 (dict): Counts for the second pass (optional).
+        stats3 (dict): Counts for the optimistic dataset (optional).
+        title (str): Output filename (will be sanitized).
         label1 (str): First pass legend label.
         label2 (str): Second pass legend label.
+        label3 (str): Optimistic legend label.
     """
-    plt.rcParams.update({
-        "figure.figsize": (3.5, 2.5),  # Set exact size
-        "font.size": 8,                # Match paper caption size
-        "axes.labelsize": 9,
-        "legend.fontsize": 7,
-        "savefig.bbox": 'tight',       # Removes wasted white space
-        "lines.linewidth": 1.2
-    })
     plt.style.use('ggplot')
     stats2 = stats2 or {}
-    categories = sorted(set(stats1) | set(stats2), key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0)), reverse=True)
+    stats3 = stats3 or {}
+    categories = sorted(set(stats1) | set(stats2) | set(stats3), key=lambda item: max(stats1.get(item, 0), stats2.get(item, 0), stats3.get(item, 0)), reverse=True)
     values1 = [stats1.get(category, 0) for category in categories]
     values2 = [stats2.get(category, 0) for category in categories]
+    values3 = [stats3.get(category, 0) for category in categories]
 
     x = np.arange(len(categories))
-    width = 0.35
+    width = 0.25 if (stats2 and stats3) else (0.35 if stats2 else 0.6)
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    if stats2:
+    if stats2 and stats3:
+        bars1 = ax.bar(x - width, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
+        bars2 = ax.bar(x, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
+        bars3 = ax.bar(x + width, values3, width, label=label3, color=PASS_COLORS[2], edgecolor='black', linewidth=0.5)
+        all_bars = list(bars1) + list(bars2) + list(bars3)
+    elif stats2:
         bars1 = ax.bar(x - width / 2, values1, width, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
         bars2 = ax.bar(x + width / 2, values2, width, label=label2, color=PASS_COLORS[1], edgecolor='black', linewidth=0.5)
         all_bars = list(bars1) + list(bars2)
@@ -90,14 +91,14 @@ def plot_graph(stats1, stats2=None, filename='', title='', label1='First Pass', 
         bars1 = ax.bar(x, values1, width=0.6, label=label1, color=PASS_COLORS[0], edgecolor='black', linewidth=0.5)
         all_bars = list(bars1)
 
-    ax.set_xlabel('Availability')
+    ax.set_xlabel('Availability', fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.xaxis.labelpad = 12
-    ax.set_ylabel('Count')
-    ax.set_title(title)
+    ax.set_ylabel('Count', fontsize=FONTSIZE_AXES, fontweight='bold')
     ax.set_xticks(x)
-    ax.set_xticklabels(categories)
+    ax.set_xticklabels(categories, fontsize=FONTSIZE_LABELS)
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=FONTSIZE_LABELS)
     ax.tick_params(axis='x', pad=6)
-    ax.legend()
+    ax.legend(fontsize=FONTSIZE_LEGEND)
 
     for bar in all_bars:
         height = bar.get_height()
@@ -107,44 +108,62 @@ def plot_graph(stats1, stats2=None, filename='', title='', label1='First Pass', 
             xytext=(0, 3),
             textcoords='offset points',
             ha='center',
-            va='bottom'
+            va='bottom',
+            fontweight='bold',
+            fontsize=FONTSIZE_TEXT
         )
 
     fig.tight_layout()
-    graphs_dir = Path("graphs")
-    pgf_dir = graphs_dir / "pgf"
-    graphs_dir.mkdir(exist_ok=True)
-    pgf_dir.mkdir(exist_ok=True)
+    save_plot(fig, title=title)
 
-    png_output_path = graphs_dir / f"{filename}.png"
-    pgf_output_path = pgf_dir / f"{filename}.pgf"
-
-    fig.savefig(png_output_path, dpi=300)
-    tex_candidates = ("pdflatex", "lualatex", "xelatex")
-    selected_tex = next((tex for tex in tex_candidates if shutil.which(tex)), None)
-    if selected_tex is None:
-        print("Warning: PGF export skipped (no LaTeX engine found: xelatex/lualatex/pdflatex)")
-    else:
-        try:
-            with mpl.rc_context(get_pgf_rc(selected_tex)):
-                fig.savefig(pgf_output_path, backend="pgf")
-        except Exception as exc:
-            print(f"Warning: failed to save PGF plot to {pgf_output_path}: {exc}")
-
-def availability_main(data_source=None):
+def availability_main(first_pass_df=None, second_pass_df=None, optimistic_df=None):
     """
-    The main function for this script
+    Generate artifact availability plots.
+    
+    Args:
+        first_pass_df: DataFrame with first-pass FAIR evaluation results (optional).
+        second_pass_df: DataFrame with second-pass FAIR evaluation results (optional).
+        optimistic_df: DataFrame with optimistic merged FAIR evaluation results (optional).
+                       If all None, loads from results/ directory.
     """
-    if data_source is not None:
-        optimistic_stats = get_availability_stats(data_source)
-        print(f"Optimistic: {optimistic_stats}")
-        plot_graph(
-            optimistic_stats,
-            None,
-            "availability_optimistic",
-            "Availability of Artefacts: Optimistic",
-            label1='Optimistic',
-        )
+    if first_pass_df is not None:
+        first_pass_stats = get_availability_stats(first_pass_df)
+        print(f"First pass: {first_pass_stats}")
+        
+        if second_pass_df is not None:
+            second_pass_stats = get_availability_stats(second_pass_df)
+            print(f"Second pass: {second_pass_stats}")
+            
+            if optimistic_df is not None:
+                optimistic_stats = get_availability_stats(optimistic_df)
+                print(f"Optimistic: {optimistic_stats}")
+                
+                plot_graph(
+                    first_pass_stats,
+                    second_pass_stats,
+                    optimistic_stats,
+                    "availability_comparison",
+                    label1='First Pass',
+                    label2='Second Pass',
+                    label3='Optimistic',
+                )
+            else:
+                plot_graph(
+                    first_pass_stats,
+                    second_pass_stats,
+                    None,
+                    "availability_comparison",
+                    label1='First Pass',
+                    label2='Second Pass',
+                )
+        else:
+            plot_graph(
+                first_pass_stats,
+                None,
+                None,
+                "availability_first_pass",
+                label1='First Pass',
+            )
         return
 
     dir = "results/"
@@ -166,7 +185,6 @@ def availability_main(data_source=None):
         first_pass_stats,
         second_pass_stats,
         "availability_comparison",
-        "Availability of Artefacts: First Pass vs Second Pass",
         label1='First Pass',
         label2='Second Pass',
     )

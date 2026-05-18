@@ -12,13 +12,14 @@ IBM_BLUE = "#648fff"
 IBM_PALETTE = [IBM_YELLOW, IBM_ORANGE, IBM_MAGENTA, IBM_PURPLE, IBM_BLUE]
 
 # Match the closest prior roles in the existing plots.
-PASS_COLORS = [IBM_BLUE, IBM_MAGENTA]
+PASS_COLORS = [IBM_BLUE, IBM_MAGENTA, IBM_YELLOW]
 FAIR_LETTER_COLORS = [IBM_MAGENTA, IBM_BLUE, IBM_PURPLE, IBM_ORANGE]
 BADGE_CASCADE_COLORS = [IBM_YELLOW, IBM_ORANGE, IBM_MAGENTA, IBM_BLUE]
 FULL_FAIR_CATEGORY_COLORS = [IBM_BLUE, IBM_MAGENTA, IBM_ORANGE, IBM_PURPLE]
 
 PGF_FONT_RC = {
-    "font.size": 9,
+    "font.size": 12,
+    "font.weight": "bold",
     "axes.titlesize": 10,
     "figure.titlesize": 10,
     "legend.fontsize": 10,
@@ -27,6 +28,11 @@ PGF_FONT_RC = {
     "xtick.labelsize": 9,
     "ytick.labelsize": 9,
 }
+
+FONTSIZE_AXES = 18
+FONTSIZE_LABELS = 16
+FONTSIZE_LEGEND = 12
+FONTSIZE_TEXT = 14
 
 
 def ibm_colormap(name, colors=None):
