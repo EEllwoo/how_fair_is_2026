@@ -4,6 +4,7 @@ message: >-
   If you use this software, please cite it using the
   metadata from this file.
 type: software
+doi: 10.5281/zenodo.20382057
 authors:
   - given-names: Emma
     family-names: Ellwood
@@ -23,3 +24,4 @@ abstract: >-
   The reproducibility package for the associated paper 'How
   FAIR is Research Software?'
 license: Apache-2.0
+
